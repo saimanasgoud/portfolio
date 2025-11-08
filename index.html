@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/portfolio/animi.jpg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sai Manas Portfolio</title>
+
+    <style>
+      body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+      }
+
+      #preloader {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        font-family: sans-serif;
+        font-weight: 500;
+        color: #555;
+      }
+
+      .spinner {
+        width: 60px;
+        height: 60px;
+        border: 5px solid #ccc;
+        border-top: 5px solid #3498db;
+        border-radius: 50%;
+        animation: spin 1.5s linear infinite;
+        margin-bottom: 10px;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+    </style>
+    <script type="module" crossorigin src="/portfolio/assets/index-BlJnofo-.js"></script>
+    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-B-M04jVg.css">
+  </head>
+
+  <body>
+    <!-- Preloader (shows until React mounts) -->
+    <div id="root">
+      <div id="preloader">
+        <div class="spinner"></div>
+        <p>Loading, please wait...</p>
+      </div>
+    </div>
+
+    <!-- ✅ Keep script at end, no leading slash for GitHub Pages -->
+  </body>
+</html>
