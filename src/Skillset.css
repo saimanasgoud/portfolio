@@ -1,0 +1,62 @@
+/* Fade in upward */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade in downward (for the title) */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation utilities */
+.animate-fadeInUp {
+  animation: fadeInUp 0.8s ease-in-out both;
+}
+
+.animate-fadeInDown {
+  animation: fadeInDown 0.8s ease-in-out both;
+}
+
+/* Delays for staggered effects */
+.delay-100 {
+  animation-delay: 0.1s;
+}
+.delay-200 {
+  animation-delay: 0.2s;
+}
+.delay-300 {
+  animation-delay: 0.3s;
+}
+.delay-400 {
+  animation-delay: 0.4s;
+}
+.delay-500 {
+  animation-delay: 0.5s;
+}
+
+/* Optional smooth hover & transitions */
+html {
+  scroll-behavior: smooth;
+}
+
+.group:hover {
+  transform: translateY(-6px);
+}
+
+* {
+  transition: all 0.3s ease-in-out;
+}
