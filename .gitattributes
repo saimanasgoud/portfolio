@@ -1,1 +1,2 @@
 public/project.mp4 filter=lfs diff=lfs merge=lfs -text
+dist/project.mp4 filter=lfs diff=lfs merge=lfs -text
