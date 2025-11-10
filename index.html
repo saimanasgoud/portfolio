@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/portfolio/animi.jpg" />
+
+    <!-- Favicon for GitHub Pages -->
+    <link rel="icon" type="image/jpg" href="/portfolio/animi.jpg" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sai Manas Portfolio</title>
 
@@ -35,24 +38,19 @@
       }
 
       @keyframes spin {
-        to {
-          transform: rotate(360deg);
-        }
+        to { transform: rotate(360deg); }
       }
     </style>
-    <script type="module" crossorigin src="/portfolio/assets/index-BlJnofo-.js"></script>
-    <link rel="stylesheet" crossorigin href="/portfolio/assets/index-B-M04jVg.css">
   </head>
 
   <body>
-    <!-- Preloader (shows until React mounts) -->
     <div id="root">
       <div id="preloader">
         <div class="spinner"></div>
         <p>Loading, please wait...</p>
       </div>
     </div>
+        <!-- <script type="module" src="/src/main.jsx"></script> -->
 
-    <!-- ✅ Keep script at end, no leading slash for GitHub Pages -->
   </body>
 </html>
