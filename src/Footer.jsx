@@ -72,8 +72,8 @@ export default function Footer() {
   }
 
   return (
-    <footer className="p-8 mt-0 border-t bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-t-[20px] shadow-inner">
-      <div className="flex flex-col md:flex-row justify-between items-center gap-8 max-w-6xl mx-auto">
+    <footer className="p-2  mt-1 border-t bg-gradient-to-r from-gray-50 via-gray-100 to-gray-50 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-t-[20px] shadow-inner">
+      <div className="flex flex-col mt-8 md:flex-row justify-between items-center gap-8 max-w-6xl mx-auto">
         {/* 🌐 Social Links */}
         <div className="flex flex-wrap justify-center gap-8">
           {/* LinkedIn */}
@@ -143,16 +143,22 @@ export default function Footer() {
           </p>
         </div>
       </div>
-
+  <p className="text-gray-700 dark:text-gray-300 flex items-center justify-center md:justify-end mt-2 gap-2">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
+      alt="India Flag"
+      className="w-8 h-5 rounded-sm object-cover "
+    />
+    India, Telangana, Hyderabad
+  </p>
       {/* Technologies & Why I Chose Them */}
       <h2 className="text-2xl font-bold mb-5 text-center text-gray-100 pt-10">
-        Technologies & Why I Chose Them
-      </h2>
-      <section className="mt-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 px-4">
+          Core Tools & Their Benefits      </h2>
+      <section className="mt-12 max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-5 px-1">
         {techData.map(({ name, points, tags }) => (
           <div
             key={name}
-            className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
+            className="bg-white dark:bg-gray-800 p-2 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-300"
           >
             <h3 className="text-xl font-semibold text-blue-600 dark:text-blue-400 mb-3">
               {name}

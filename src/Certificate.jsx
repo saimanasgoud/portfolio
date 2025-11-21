@@ -18,7 +18,7 @@ export default function Certificate() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center py-12 mt-20 px-6">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center py-12 mt-20 px-2">
       <h1 className="text-4xl font-bold text-blue-700 mb-8 slide">
         🎓 Certificates
       </h1>

@@ -14,26 +14,29 @@ export default function Home() {
   const [bgColor, setBgColor] = useState("#fef9c3");
   const [sectionColors, setSectionColors] = useState({});
 
-  const messages = [
-    "💚 Thanks for taking the time to explore my portfolio!",
-    "👋 I appreciate you spending a moment to check out my work!",
-    "🙏 Thank you for your time — it means a lot to me!",
-    "🌟 Your interest in my journey truly motivates me. Thanks for visiting!",
-    "💼 Thanks for stopping by and exploring what I love to build!",
-    "💻 You’ve unlocked: 'Dedicated Viewer' — thanks for exploring my code world!",
-    "🚀 Thanks for diving deep into my portfolio — you’re awesome!",
-    "🧠 Thanks for debugging through my projects and story!",
-    "🪄 Your curiosity keeps developers like me inspired — thank you!"
-  ];
+const messages = [
+  "💚 Thanks for taking the time to explore my portfolio!",
+  "👋 I appreciate you spending a moment to check out my work!",
+  "🙏 Thank you for your time — it truly means a lot!",
+  "🌟 Your interest in my journey keeps me motivated. Thanks for visiting!",
+  "💼 Thanks for stopping by and exploring what I love to build!",
+  "💻 You’ve unlocked: 'Dedicated Viewer' — thanks for exploring my code world!",
+  "🚀 Thanks for diving deep into my portfolio — you're awesome!",
+  "🧠 Thanks for debugging through my projects and story!",
+  "🪄 Your curiosity inspires developers like me — thank you!",
+  "💬 You can also use **Connect** to post messages and share your thoughts!",
+];
 
-  const tips = [
-    "💡 Tip: Check out my Projects section!",
-    "🚀 Did you see my Portfolio Website project?",
-    "👀 Hover over skillset to see more details!",
-    "🌟 Don’t forget to connect with me on LinkedIn!",
-    "✨ Scroll down to see all my core skills.",
-    "🌐 Explore my GitHub for more projects!",
-  ];
+const tips = [
+  "💡 Tip: Visit the Projects section to see real-world applications!",
+  "🚀 Check out my Portfolio Website project — built with React & Tailwind!",
+  "👀 Hover over the skill cards to discover more details!",
+  "🌟 Let’s connect on LinkedIn — I’d love to network!",
+  "✨ Scroll further down to view my complete skillset and experience!",
+  "🌐 Explore my GitHub for more live projects and code!",
+  "📝 Want to interact? Use the Connect section to post your message!",
+];
+
 
   const getGreeting = () => {
     const hour = new Date().getHours();
@@ -61,7 +64,7 @@ export default function Home() {
 
       const hideTimer = setTimeout(() => setshowStayMessage(false), 8000);
       return () => clearTimeout(hideTimer);
-    }, 40000);
+    }, 50000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -74,7 +77,7 @@ export default function Home() {
       setShowTip(true);
 
       // Hide tip after 9 seconds
-      setTimeout(() => setShowTip(false), 9000);
+      setTimeout(() => setShowTip(false), 8000);
     }, 30000); // show once after 20s
 
     return () => clearTimeout(timer);
@@ -85,7 +88,7 @@ export default function Home() {
     const colorInterval = setInterval(() => {
       const randomColor = accentColors[Math.floor(Math.random() * accentColors.length)];
       setBgColor(randomColor);
-    }, 5000); // every 5 seconds
+    }, 6000); // every 5 seconds
 
     return () => clearInterval(colorInterval);
   }, []);

@@ -17,7 +17,7 @@ const popIn = (delay = 0) => ({
 
 export default function AboutMe() {
   return (
-    <section className="pt-0 mt-15 px-10 md:px-12 lg:px-24 py-1 bg-gray-50 rounded-lg shadow-lg overflow-hidden">
+    <section className="pt-0 mt-15 px-4 md:px-12 lg:px-24 py-1 bg-gray-50 rounded-lg shadow-lg overflow-hidden">
       {/* Header */}
       <motion.h2
         variants={popIn(0.1)}

@@ -42,7 +42,7 @@ function ServiceCard({ title, icon: Icon, children, colorClass, animationClass }
 
 export default function Skillset() {
   return (
-    <section className="min-h-screen bg-gradient-to-b from-blue-50 via-white to-blue-50 px-8 py-20 mt-20 overflow-hidden">
+    <section className="bg-gradient-to-b text-left from-blue-50 via-white to-blue-50 px-3 py-20 mt-20 overflow-hidden">
       <div className="text-center mb-12 animate-fadeInDown">
         <h1 className="text-4xl font-extrabold text-blue-700 mb-3">
           My Technical Skillset
@@ -66,6 +66,8 @@ export default function Skillset() {
             <li>Component-driven architecture (Hooks, Context API)</li>
             <li>State management with Redux & Zustand</li>
             <li>Client-side routing with React Router DOM</li>
+            <li>Performance optimization (code splitting, lazy loading)</li>
+            <li>Testing with Jest & React Testing Library</li>
           </ul>
         </ServiceCard>
 
@@ -80,6 +82,8 @@ export default function Skillset() {
             <li>OOP Principles: Inheritance, Polymorphism, Abstraction, Encapsulation</li>
             <li>Multithreading & Synchronization</li>
             <li>Java 8+ features: Streams & Lambdas</li>
+            <li>Unit testing with JUnit</li>
+            <li>Build tools: Maven & Gradle</li>
           </ul>
         </ServiceCard>
 
@@ -94,6 +98,8 @@ export default function Skillset() {
             <li>Database integration with MySQL</li>
             <li>ORM with Hibernate & JPA</li>
             <li>Spring Security: Authentication & Authorization</li>
+            <li>API documentation with Swagger/OpenAPI</li>
+            <li>Testing with Postman & integration tests</li>
           </ul>
         </ServiceCard>
 
@@ -107,6 +113,8 @@ export default function Skillset() {
             <li>SQL: schema design, indexing, complex queries</li>
             <li>Version control with Git & GitHub collaboration</li>
             <li>Active contributions to open-source repositories</li>
+            <li>NoSQL basics (MongoDB)</li>
+            <li>Database backups & migrations</li>
           </ul>
         </ServiceCard>
 
@@ -121,6 +129,8 @@ export default function Skillset() {
             <li>Responsive design & accessibility</li>
             <li>Problem-solving on HackerRank (DSA & algorithms)</li>
             <li>Strong analytical & communication skills</li>
+            <li>CI/CD pipelines (GitHub Actions)</li>
+            <li>Mentoring & code reviews</li>
           </ul>
         </ServiceCard>
         <ServiceCard
@@ -134,6 +144,8 @@ export default function Skillset() {
     <li>Secured data operations with Firebase Authentication & Rules</li>
     <li>Designed scalable data structure for fast read/write performance</li>
     <li>Integrated seamless CRUD operations for live applications</li>
+    <li>Cloud Functions for serverless business logic</li>
+    <li>Analytics & Crashlytics integration for app insights</li>
   </ul>
 </ServiceCard>
 

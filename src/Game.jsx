@@ -176,7 +176,7 @@ const CrazyTicTacToe = () => {
   };
 
   return (
-    <div ref={screenRef} className="flex flex-col items-center justify-center p-10 font-sans relative bg-gray-100 text-gray-900">
+    <div ref={screenRef} className="flex mb-5 flex-col items-center justify-center p-1 mt-15 font-sans relative bg-gray-100 text-gray-900">
 
       {/* Landing Page */}
       {showLanding && (
@@ -189,28 +189,29 @@ const CrazyTicTacToe = () => {
               setShowGame(true);
               setIsUserTurn(tempFirstTurn === "user");
               setComputerSymbol(userSymbol === "X" ? "O" : "X");
-              hardReset();
-            }} className="bg-green-500 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-105 cursor-pointer">
-              Lets begin 😎
-            </button>
-            <button
-              onClick={() => setMessage("No problem 😴, see you later!")}
-              className="bg-gray-400 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-gray-500 transition transform hover:scale-105 cursor-pointer"
-            >
-              play Later 😴
-            </button>
-          </div>
-          {message && (
-            <p className="mt-4 text-pink-500 font-semibold text-lg">
-              {message}
-            </p>
-          )}
-        </div>
-      )}
+                hardReset();
+                setMessage("");
+              }} className="bg-green-500 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-green-600 transition transform hover:scale-105 cursor-pointer">
+                Lets begin 😎
+              </button>
+              <button
+                onClick={() => setMessage(prev => prev ? "" : "No problem 😴, see you later!")}
+                className="bg-gray-400 text-white px-8 py-3 rounded-xl shadow-lg hover:bg-gray-500 transition transform hover:scale-105 cursor-pointer"
+              >
+                play Later 😴
+              </button>
+              </div>
+              {message && (
+              <p className="mt-4 text-pink-500 font-semibold text-lg">
+                {message}
+              </p>
+              )}
+            </div>
+            )}
 
-      {/* Game UI */}
+            {/* Game UI */}
       {showGame && (
-        <div className="w-full max-w-xs p-6 bg-white rounded-2xl shadow-2xl">
+        <div className="w-100 max-w-ls p-4 bg-white rounded-2xl shadow-2xl">
 
           {/* Settings Button */}
           <div className="flex justify-end mb-2">
@@ -250,7 +251,7 @@ const CrazyTicTacToe = () => {
 
           {/* Winner Message */}
           {winner && (
-            <div className="mt-4 text-center font-bold text-xl">
+            <div className="mt-8 text-center font-bold text-xl">
               {winner === "Draw"
                 ? "It's a Draw! 🤝"
                 : winner === userSymbol
@@ -259,6 +260,7 @@ const CrazyTicTacToe = () => {
 
               <div className="mt-4 flex items-center justify-center space-x-2">
                 <h4 className="text-lg font-semibold">Want to play again?</h4>
+                
                 <button
                   className="px-4 py-1 text-sm bg-green-200 border rounded-lg cursor-pointer hover:bg-green-300 transition"
                   onClick={hardReset}
@@ -266,7 +268,12 @@ const CrazyTicTacToe = () => {
                   Restart
                 </button>
               </div>
+
+           <p className="text-sm font-normal italic bg-blue-50 p-2 mt-5 text-left rounded-lg">
+            You can customize your preferences anytime through the <strong className="text-blue-700">"⚙️ Settings"</strong> menu.</p>
             </div>
+
+            
           )}
 
           {/* Settings Panel */}

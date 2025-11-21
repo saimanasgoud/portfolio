@@ -141,7 +141,7 @@ export default function MessageBoard() {
       update(pRef, {
         onlineAt: serverTimestamp(),
         name: userName || "",
-        lastActive: Date.now()
+        // lastActive: Date.now()
       });
     };
     
@@ -160,10 +160,10 @@ export default function MessageBoard() {
     const unsub = onValue(listRef, (snap) => {
       const data = snap.val() || {};
       const now = Date.now();
-      const activeUsers = Object.entries(data)
-        .filter(([_, user]) => now - user.lastActive < 60000) // Consider users inactive after 1 minute
-        .map(([key]) => key);
-      setOnlineUsers(activeUsers);
+      // const activeUsers = Object.entries(data)
+      //   .filter(([_, user]) => now - user.lastActive < 60000) // Consider users inactive after 1 minute
+      //   .map(([key]) => key);
+      // setOnlineUsers(activeUsers);
     });
     
     return () => {
@@ -557,7 +557,7 @@ export default function MessageBoard() {
      Render
      ---------------------------*/
   return (
-    <section className="max-w-3xl mx-auto mt-25 p-6 bg-white rounded-lg shadow-lg relative">
+    <section className="max-w-3xl mx-auto mt-25 p-1 bg-white rounded-lg shadow-lg relative">
       {/* Header: Community Status Bar */}
       <div className="flex items-center justify-between mb-4 p-3 bg-indigo-50 rounded-lg">
         <div className="flex items-center gap-2">
@@ -567,7 +567,7 @@ export default function MessageBoard() {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span className="text-sm text-gray-700">
-            Active Members: <strong>{onlineUsers.length}</strong>
+            {/* Active Members: <strong>{onlineUsers.length}</strong> */}
           </span>
         </div>
       </div>
@@ -587,58 +587,67 @@ export default function MessageBoard() {
       )}
 
       {/* First-time User Authentication */}
-      {showUserPopup && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <div className="absolute inset-0 bg-black/30"></div>
-          <div className="relative bg-white rounded-lg p-6 w-[92%] max-w-md shadow-lg z-60">
-            <h2 className="text-xl font-bold mb-3 text-indigo-700">TalkZone – Public Message Board</h2>
+        {showUserPopup && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center">
+            <div className="absolute inset-0 bg-black/30"></div>
+            {/* make modal content scrollable when it overflows the viewport */}
+            <div className="relative bg-white rounded-lg p-4 w-[92%] max-w-md shadow-lg z-60 max-h-[80vh] overflow-y-auto">
+          <h2 className="text-xl font-bold mb-3 text-indigo-700">TalkZone – Public Message Board</h2>
+ 
+        <details className="mb-4 bg-gray-50 p-3 rounded border">
+            <summary className="cursor-pointer font-bold text-green-500">Why Iam asking this</summary>
+            <ul className="mt-2 text-sm text-gray-700 list-disc list-inside space-y-1">
+              <li>It helps me to keep the space free from unwanted or anonymous activity.</li>
+              <li>Ensures that reports are clear and easy to manage or Delete if required.</li>
+              <li>Gives you the flexibility to remove your details whenever needed..</li>
+            </ul>
+          </details>
+          <div className="bg-indigo-50 border border-indigo-200 rounded-md p-4 mb-4">
+            <h3 className="text-lg font-semibold mb-3 text-green-600 flex items-center gap-2">🛡️ Before You Post — A Quick Step</h3>
+            <ul className="mt-3 space-y-2 text-sm text-gray-700">
+              <li className="flex items-start gap-2">✅ <span>Your <span className="font-semibold text-indigo-700">name will be displayed</span> with your post — please enter it correctly.</span></li>
+              <li className="flex items-start gap-2">📧 <span>Your email is used only for <span className="font-semibold text-green-700">verification</span> and to recognize you when you return.</span></li>
+              <li className="flex items-start gap-2">🔒 <span>We keep your details <span className="font-semibold text-green-700">safe, secure & confidential</span>.</span></li>
+              <li className="flex items-start gap-2">🧑‍💻 <span>You only need to enter your details <span className="font-semibold text-red-700">once</span> — next time we’ll greet you with “Welcome back!”.</span></li>
+              <li className="flex items-start gap-2">🤝 <span>This helps maintain a <span className="font-semibold text-purple-700">trustworthy and respectful community</span>.</span></li>
+            </ul>
+          </div>
 
-            <div className="bg-indigo-50 border border-indigo-200 rounded-md p-4 mb-4">
-              <h3 className="text-lg font-semibold mb-3 text-green-600 flex items-center gap-2">🛡️ Before You Post — A Quick Step</h3>
-              <ul className="mt-3 space-y-2 text-sm text-gray-700">
-                <li className="flex items-start gap-2">✅ <span>Your <span className="font-semibold text-indigo-700">name will be displayed</span> with your post — please enter it correctly.</span></li>
-                <li className="flex items-start gap-2">📧 <span>Your email is used only for <span className="font-semibold text-green-700">verification</span> and to recognize you when you return.</span></li>
-                <li className="flex items-start gap-2">🔒 <span>We keep your details <span className="font-semibold text-green-700">safe, secure & confidential</span>.</span></li>
-                <li className="flex items-start gap-2">🧑‍💻 <span>You only need to enter your details <span className="font-semibold text-red-700">once</span> — next time we’ll greet you with “Welcome back!”.</span></li>
-                <li className="flex items-start gap-2">🤝 <span>This helps maintain a <span className="font-semibold text-purple-700">trustworthy and respectful community</span>.</span></li>
-              </ul>
-            </div>
+          <p className="text-sm text-gray-700 leading-relaxed mb-3">To keep this community genuine and respectful, please provide your <span className="font-semibold text-indigo-700">real name and email</span> before posting a message.</p>
 
-            <p className="text-sm text-gray-700 leading-relaxed mb-3">To keep this community genuine and respectful, please provide your <span className="font-semibold text-indigo-700">real name and email</span> before posting a message.</p>
+          <div className="mb-4">
+            <label className="flex items-center gap-3 mb-3">
+              <span className="w-10 text-orange-500 font-medium">Name</span>
+              <input
+            type="text"
+            placeholder="Will appear with every post you make."
+            className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
+            value={tempName}
+            onChange={(e) => setTempName(e.target.value)}
+              />
+            </label>
 
-            <div className="mb-4">
-              <label className="flex items-center gap-3 mb-3">
-                <span className="w-10 text-orange-500 font-medium">Name</span>
-                <input
-                  type="text"
-                  placeholder="Will appear with every post you make."
-                  className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
-                  value={tempName}
-                  onChange={(e) => setTempName(e.target.value)}
-                />
-              </label>
+            <label className="flex items-center gap-3">
+              <span className="w-10 text-orange-500 font-medium">Email</span>
+              <input
+            type="email"
+            placeholder="Verify your identity and avoid fake users."
+            className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
+            value={tempEmail}
+            onChange={(e) => setTempEmail(e.target.value)}
+              />
+            </label>
+          </div>
 
-              <label className="flex items-center gap-3">
-                <span className="w-10 text-orange-500 font-medium">Email</span>
-                <input
-                  type="email"
-                  placeholder="Verify your identity and avoid fake users."
-                  className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
-                  value={tempEmail}
-                  onChange={(e) => setTempEmail(e.target.value)}
-                />
-              </label>
-            </div>
-
-            <div className="flex justify-end space-x-3">
-              <button onClick={() => setShowUserPopup(false)} className="px-4 py-2 cursor-pointer border rounded">Cancel</button>
-              <button onClick={saveUserDetails} className="px-4 py-2 cursor-pointer bg-indigo-600 text-white rounded">Save & Continue</button>
+          <div className="flex justify-end space-x-3">
+            <button onClick={() => setShowUserPopup(false)} className="px-4 py-2 cursor-pointer border rounded">Cancel</button>
+            <button onClick={saveUserDetails} className="px-4 py-2 cursor-pointer bg-indigo-600 text-white rounded">Save & Continue</button>
+          </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
 
-      {/* Post form */}
+        {/* Post form */}
       {showPostForm && !showUserPopup && (
         <div className="mb-6 bg-white rounded-lg shadow-sm p-4">
           {/* User info bar */}
@@ -654,7 +663,7 @@ export default function MessageBoard() {
             </div>
             <button
               onClick={() => setShowUserPopup(true)}
-              className="text-xs text-indigo-600 hover:underline"
+              className="text-xs cursor-pointer text-indigo-600 hover:underline"
             >
               Update details
             </button>
@@ -682,7 +691,7 @@ export default function MessageBoard() {
                     setShowUserPopup(true);
                     alert("Your details have been removed.");
                     }}
-                    className="text-xs text-red-600 hover:underline ml-2"
+                    className="text-xs cursor-pointer text-red-600 hover:underline ml-2"
                     >
                     Delete details
                     </button>

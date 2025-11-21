@@ -94,7 +94,7 @@ const logoMap = {
 };
 
   return (
-    <section className="py-12 px-6 md:px-12 lg:px-24 bg-gray-50 rounded-lg shadow-lg">
+    <section className="py-12 px-2 md:px-12 lg:px-24 bg-gray-50 rounded-lg shadow-lg">
       <h2 className="text-4xl font-bold mb-10 text-green-500 text-center">
         Technical Skills
       </h2>

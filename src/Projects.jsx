@@ -3,8 +3,8 @@ import project from "/project.mp4";
 
 function Projects() {
   return (
-    <section id="projects" style={{ padding: "1.5rem" }}>
-      <h2 className="text-3xl font-bold mb-9 text-green-500 blink pt-10 text-center">
+    <section id="projects" style={{ padding: "0.5rem" }}>
+      <h2 className="text-3xl font-bold mb-10 text-green-500 blink pt-10 text-center">
         Featured Projects
       </h2>
 
@@ -40,7 +40,7 @@ function ProjectCard({ proj }) {
   const [showVideo, setShowVideo] = useState(false);
 
   return (
-    <div className="p-6 bg-white dark:bg-gray-200 rounded-lg shadow transition transform hover:shadow-2xl hover:scale-105">
+    <div className="p-4 bg-white dark:bg-gray-200 rounded-lg shadow transition transform hover:shadow-2xl hover:scale-105">
       {/* Title */}
       <h3 className="text-2xl font-semibold mb-3 text-yellow-500">
         {proj.title}
