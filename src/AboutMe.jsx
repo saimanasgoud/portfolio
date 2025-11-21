@@ -44,7 +44,7 @@ export default function AboutMe() {
 
         <motion.li variants={popIn(1.5)}>
           ➤ On the <strong>frontend</strong>, I specialize in{" "}
-          <strong>React.js, Tailwind CSS, and modern JavaScript (ES6+)</strong>,
+          <strong>React.js, Tailwind CSS, and modern JavaScript (ES6+)</strong> with this created a gime called Tic-Tac-Toe, focusing on
           creating fast, responsive, and visually appealing interfaces.
         </motion.li>
         <motion.li variants={popIn(2.3)}>
@@ -56,7 +56,7 @@ export default function AboutMe() {
         <motion.li variants={popIn(2.9)}>
           ➤ On the <strong>backend</strong>, I work with{" "}
           <strong>Java, Spring Boot, and SQL</strong> to design RESTful APIs,
-          manage data, and implement robust business logic with full CRUD operations.
+          manage data by using Mysql workbench, and implement robust business logic with full CRUD operations.
         </motion.li>
 
         <motion.li variants={popIn(3.5)}>
@@ -67,7 +67,7 @@ export default function AboutMe() {
         </motion.li>
 
         <motion.li variants={popIn(4.5)}>
-          ➤ I also use <strong>MySQL, Git/GitHub, and REST API design</strong>{" "}
+          ➤ I also use <strong>MySQL, Firebase, Git/GitHub, and REST API design</strong>{" "}
           to build maintainable, well-documented, and scalable applications.
         </motion.li>
 
