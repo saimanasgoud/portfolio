@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import project from "/project.mp4";
+import project from "../public/project.mp4";
 
 function Projects() {
   return (
