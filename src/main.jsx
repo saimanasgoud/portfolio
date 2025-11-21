@@ -6,17 +6,17 @@ import { BrowserRouter } from 'react-router-dom';
 
 const basename = import.meta.env.MODE === 'production' ? '/portfolio' : '/';
 
-// ReactDOM.createRoot(document.getElementById('root')).render(
-//     <BrowserRouter basename='/portfolio'>
-//       <App />
-//     </BrowserRouter>
-// );
-
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter basename={basename}>
+    <BrowserRouter basename='/portfolio'>
       <App />
     </BrowserRouter>
 );
+
+// ReactDOM.createRoot(document.getElementById('root')).render(
+//     <BrowserRouter basename={basename}>
+//       <App />
+//     </BrowserRouter>
+// );
 
 
 // import React from 'react';

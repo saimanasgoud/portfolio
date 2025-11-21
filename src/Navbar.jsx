@@ -28,7 +28,7 @@ useEffect(() => {
           Godishela Sai Manas Goud
         </h1> */}
       </div>
-      <div className="flex space-x-2">
+      <div className="flex space-x-1">
         {/* <NavLink
           to="/resume"
           className="px-2 py-2 border border-blue-600 text-red-600 font-medium rounded-xl shadow-sm hover:bg-purple-600 hover:text-white transition duration-300"

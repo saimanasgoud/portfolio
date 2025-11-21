@@ -51,7 +51,7 @@ export default function Certificate() {
 
         {activeCert === "fullstack" && !loading && (
           <img
-            src="/saimanas/sai.valueladen.jpg"
+            src="/portfolio/sai.valueladen.jpg"
             alt="Full Stack Development Certificate"
             className="mt-4 w-full max-w-xl rounded-lg shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105 fade-in"
           />
@@ -85,9 +85,9 @@ export default function Certificate() {
 
         {activeCert === "java" && !loading && (
           <img
-            src="/saimanas/java.certificate.jpg"
+            src="/portfolio/java.certificate.jpg"
             alt="Java Programming Certificate"
-            className="mt-4 w-full max-w-xl rounded-lg shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105 fade-in"
+            className="mt-14 w-full max-w-xl rounded-lg shadow-lg transition-all duration-500 ease-in-out transform hover:scale-105 fade-in"
           />
         )}
       </div>

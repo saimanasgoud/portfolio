@@ -5,7 +5,7 @@ import AboutMe from './AboutMe';
 import Projects from './Projects';
 import Connect from './Connect';
 import Skills from './TechnicalScills';
-
+import Game from './Game.jsx';
 export default function Home() {
   const [showStayMessage, setshowStayMessage] = useState("");
   const [CurrentMessage, setCurrentMessage] = useState("");
@@ -61,7 +61,7 @@ export default function Home() {
 
       const hideTimer = setTimeout(() => setshowStayMessage(false), 8000);
       return () => clearTimeout(hideTimer);
-    }, 30000);
+    }, 40000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -75,7 +75,7 @@ export default function Home() {
 
       // Hide tip after 9 seconds
       setTimeout(() => setShowTip(false), 9000);
-    }, 20000); // show once after 20s
+    }, 30000); // show once after 20s
 
     return () => clearTimeout(timer);
   }, []);
@@ -104,7 +104,8 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="hig space-y-5 text-center">
+    <main className="hig pt-1 space-y-0 text-center">
+      
       {/* Intro Section */}
       <Intro />
 
@@ -117,6 +118,8 @@ export default function Home() {
       {/*Core skills */}
       <Skills />
 
+      <Game />
+      
       {/* Contact Teaser */}
       <Connect />
 

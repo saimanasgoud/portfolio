@@ -12,7 +12,7 @@ function CircularProgress({ percentage, color, label }) {
 
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
-  
+
   useEffect(() => {
     if (isInView) {
       const controls = animate(progress, percentage, {
@@ -29,7 +29,6 @@ function CircularProgress({ percentage, color, label }) {
   return (
     <div ref={ref} className="flex flex-col items-center">
       <svg height={radius * 2} width={radius * 2}>
-        {/* Background Circle */}
         <circle
           stroke="#e5e7eb"
           fill="transparent"
@@ -38,7 +37,6 @@ function CircularProgress({ percentage, color, label }) {
           cx={radius}
           cy={radius}
         />
-        {/* Foreground Animated Circle */}
         <circle
           stroke={color}
           fill="transparent"
@@ -51,7 +49,6 @@ function CircularProgress({ percentage, color, label }) {
           strokeDashoffset={strokeDashoffset}
           style={{ transition: "stroke-dashoffset 0.1s linear" }}
         />
-        {/* Percentage Text */}
         <text
           x="50%"
           y="50%"
@@ -64,7 +61,9 @@ function CircularProgress({ percentage, color, label }) {
           {count}%
         </text>
       </svg>
-      <span className="mt-3 text-lg font-semibold" style={{color}}>{label}</span>
+      <span className="mt-3 text-lg font-semibold" style={{ color }}>
+        {label}
+      </span>
     </div>
   );
 }
@@ -82,16 +81,60 @@ export default function Skills() {
     { label: "JavaScript", percentage: 92, color: "#eab308" },
   ];
 
+const logoMap = {
+  "Vite + React": "https://cdn.worldvectorlogo.com/logos/react-2.svg",
+  "MySQL": "https://cdn.simpleicons.org/mysql/4479A1",
+  "Spring Boot": "https://cdn.worldvectorlogo.com/logos/spring-3.svg",
+  "Git": "https://cdn.worldvectorlogo.com/logos/git-icon.svg",
+  "Java": "https://cdn.worldvectorlogo.com/logos/java-4.svg",          // WORKING
+  "CSS": "https://cdn.worldvectorlogo.com/logos/css-3.svg",           // WORKING
+  "HTML": "https://cdn.worldvectorlogo.com/logos/html-1.svg",
+  "Tailwind Css": "https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg",
+  "JavaScript": "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",
+};
+
   return (
     <section className="py-12 px-6 md:px-12 lg:px-24 bg-gray-50 rounded-lg shadow-lg">
       <h2 className="text-4xl font-bold mb-10 text-green-500 text-center">
         Technical Skills
       </h2>
 
-      {/* Side-by-side responsive layout */}
-      <div className="flex flex-wrap justify-between gap-8">
+      {/* --- ABOUT TEXT MARQUEE --- */}
+      <hr /><marquee className="p-5 flex bg-yellow-100 text-blue-900 font-semibold text-lg slow">
+        Striving for excellence in every line of code, I blend creativity with
+        technical expertise to build robust applications.Proficient in <strong className="text-orange-400">Java,
+        Spring Boot, React, MySQL, and Tailwind CSS,</strong> I aim to transform ideas
+        into impactful digital solutions.
+      </marquee><hr />
+
+      {/* --- LOGO MARQUEE --- */}
+      <marquee direction="right" scrollamount="5" className="mb-12 mt-12">
+        <div className="flex gap-6 items-center py-2">
+          {skills.map((s) => (
+            <div
+              key={s.label}
+              className="flex flex-col items-center bg-white/80 backdrop-blur-md shadow-md border border-gray-200 rounded-xl p-3 min-w-[90px] hover:scale-105 transition"
+            >
+              <img
+                src={logoMap[s.label]}
+                alt={s.label}
+                className="w-12 h-12"
+              />
+              <span className="text-sm mt-2 font-medium text-gray-700 text-center">
+                {s.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </marquee>
+
+      {/* --- CIRCULAR SKILLS --- */}
+      <div className="flex flex-wrap justify-between gap-8 mt-4">
         {skills.map((skill) => (
-          <div key={skill.label} className="flex-1 min-w-[120px] max-w-[150px]">
+          <div
+            key={skill.label}
+            className="flex-1 min-w-[130px] max-w-[150px]"
+          >
             <CircularProgress
               percentage={skill.percentage}
               color={skill.color}

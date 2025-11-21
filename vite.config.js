@@ -27,20 +27,20 @@
 // });
 
 
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// import { defineConfig } from 'vite'
+// import react from '@vitejs/plugin-react'
 
-export default defineConfig(({ mode }) => ({
-  plugins: [react()],
-  base: mode === 'production' ? '/portfolio/' : '/',   // ✅ Fix here
-}));
-
-
-
-// import { defineConfig } from 'vite';
-// import react from '@vitejs/plugin-react';
-
-// export default defineConfig({
+// export default defineConfig(({ mode }) => ({
 //   plugins: [react()],
-//   base: '/portfolio/',  // this is important for gh-pages deploy
-// });
+//   base: mode === 'production' ? '/portfolio/' : '/',   // ✅ Fix here
+// }));
+
+
+
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+export default defineConfig({
+  plugins: [react()],
+  base: '/portfolio',  // this is important for gh-pages deploy
+});
