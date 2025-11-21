@@ -14,18 +14,19 @@ function Projects() {
             title: "Clinic Care",
             desc: "A comprehensive full-stack healthcare management system that simplifies clinic operations and enhances patient–doctor interactions. It includes secure authentication, role-based access control, appointment scheduling, and patient record management. Built using React, Tailwind CSS, Spring Boot, and MySQL for seamless performance and scalability. Currently under continuous improvement and optimization.",
             video: project,
+            link: "/portfolio/project.mp4",
           },
           {
             title: "Portfolio Website",
             desc: "A fully responsive and visually engaging personal portfolio designed to showcase my skills, projects, and professional background. Built with React and Tailwind CSS for a fast, dynamic UI, and powered by Spring Boot and MySQL for backend data management and authentication. Includes interactive sections, smooth animations, and a contact form for seamless communication.",
             video: null,
-            link: "/",
+            link: "/portfolio/",
           },
           {
             title: "Computer Vision–Based Quality Control in Manufacturing",
             desc: "An AI-driven system that leverages computer vision to automate defect detection and quality assurance in manufacturing environments. Using high-resolution imaging and real-time analytics, it identifies defects or deviations from quality standards, minimizing human error and boosting production efficiency. The system significantly improves consistency and reliability in large-scale production.",
             video: null,
-            link: "portfolio/saimanasProject.pdf",
+            link: "/portfolio/saimanasProject.pdf",
           },
         ].map((proj) => (
           <ProjectCard key={proj.title} proj={proj} />

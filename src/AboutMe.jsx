@@ -56,7 +56,7 @@ export default function AboutMe() {
         <motion.li variants={popIn(2.9)}>
           ➤ On the <strong>backend</strong>, I work with{" "}
           <strong>Java, Spring Boot, and SQL</strong> to design RESTful APIs,
-          manage data by using Mysql workbench, and implement robust business logic with full CRUD operations.
+          manage data by prousing Mysql workbench, and implement robust business logic with full CRUD operations.
         </motion.li>
 
         <motion.li variants={popIn(3.5)}>
