@@ -48,7 +48,7 @@ export default function Skillset() {
           My Technical Skillset
         </h1>
         <p className="text-gray-600 text-sm max-w-xl mx-auto">
-          A refined overview of the technologies and frameworks I work with — 
+          A refined overview of the technologies and frameworks I work with —
           crafting seamless, performant, and scalable solutions from concept to deployment.
         </p>
       </div>
@@ -119,6 +119,22 @@ export default function Skillset() {
         </ServiceCard>
 
         <ServiceCard
+          title="Firebase & Realtime DB"
+          icon={FaDatabase}
+          colorClass="text-yellow-600"
+          animationClass="animate-fadeInUp delay-600"
+        >
+          <ul className="list-disc list-inside space-y-2">
+            <li>Implemented real-time messaging using Firebase Realtime Database</li>
+            <li>Secured data operations with Firebase Authentication & Rules</li>
+            <li>Designed scalable data structure for fast read/write performance</li>
+            <li>Integrated seamless CRUD operations for live applications</li>
+            <li>Cloud Functions for serverless business logic</li>
+            <li>Analytics & Crashlytics integration for app insights</li>
+          </ul>
+        </ServiceCard>
+
+        <ServiceCard
           title="Additional Skills"
           icon={FaTools}
           colorClass="text-pink-600"
@@ -133,21 +149,7 @@ export default function Skillset() {
             <li>Mentoring & code reviews</li>
           </ul>
         </ServiceCard>
-        <ServiceCard
-  title="Firebase & Realtime DB"
-  icon={FaDatabase}
-  colorClass="text-yellow-600"
-  animationClass="animate-fadeInUp delay-600"
->
-  <ul className="list-disc list-inside space-y-2">
-    <li>Implemented real-time messaging using Firebase Realtime Database</li>
-    <li>Secured data operations with Firebase Authentication & Rules</li>
-    <li>Designed scalable data structure for fast read/write performance</li>
-    <li>Integrated seamless CRUD operations for live applications</li>
-    <li>Cloud Functions for serverless business logic</li>
-    <li>Analytics & Crashlytics integration for app insights</li>
-  </ul>
-</ServiceCard>
+
 
       </div>
     </section>
