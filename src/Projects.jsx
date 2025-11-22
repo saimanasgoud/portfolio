@@ -20,7 +20,7 @@ function Projects() {
             title: "Portfolio Website",
             desc: "A fully responsive and visually engaging personal portfolio designed to showcase my skills, projects, and professional background. Built with React and Tailwind CSS for a fast, dynamic UI, and powered by Spring Boot and MySQL for backend data management and authentication. Includes interactive sections, smooth animations, and a contact form for seamless communication.",
             video: null,
-            link: "/", // Google Drive link added
+            link: "/portfolio", // Google Drive link added
           },
           {
             title: "Computer Vision–Based Quality Control in Manufacturing",
