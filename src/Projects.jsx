@@ -20,13 +20,13 @@ function Projects() {
             title: "Portfolio Website",
             desc: "A fully responsive and visually engaging personal portfolio designed to showcase my skills, projects, and professional background. Built with React and Tailwind CSS for a fast, dynamic UI, and powered by Spring Boot and MySQL for backend data management and authentication. Includes interactive sections, smooth animations, and a contact form for seamless communication.",
             video: null,
-            link: "https://drive.google.com/your-portfolio-link", // Google Drive link added
+            link: "/", // Google Drive link added
           },
           {
             title: "Computer Vision–Based Quality Control in Manufacturing",
             desc: "An AI-driven system that leverages computer vision to automate defect detection and quality assurance in manufacturing environments. Using high-resolution imaging and real-time analytics, it identifies defects or deviations from quality standards, minimizing human error and boosting production efficiency. The system significantly improves consistency and reliability in large-scale production.",
             video: null,
-            link: "https://drive.google.com/your-computer-vision-link", // Google Drive link added
+            link: "/portfolio/saimanasProject.pdf", // Google Drive link added
           },
         ].map((proj) => (
           <ProjectCard key={proj.title} proj={proj} />
