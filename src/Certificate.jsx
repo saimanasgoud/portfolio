@@ -18,15 +18,15 @@ export default function Certificate() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex flex-col items-center py-12 mt-20 px-2">
+    <div className="bg-gradient-to-b flex from-blue-50 to-white flex-col items-center py-5 mt-27 px-2">
       <h1 className="text-4xl font-bold text-blue-700 mb-8 slide">
         🎓 Certificates
       </h1>
 
       {/* ===== Full Stack Development Certificate ===== */}
       <div className="max-w-3xl bg-white rounded-2xl shadow-lg p-8 mb-10 text-center border border-blue-100">
-        <h2 className="text-2xl font-semibold text-yellow-700 mb-4 blink">
-          Internship Certificate - Full Stack Development
+        <h2 className="text-2xl font-semibold text-yellow-700 mb-4">
+          Internship
         </h2>
 
         <p className="text-gray-700 leading-relaxed mb-6">
@@ -61,7 +61,7 @@ export default function Certificate() {
       {/* ===== Java Certificate ===== */}
       <div className="max-w-3xl bg-white rounded-2xl shadow-lg p-8 text-center border border-blue-100">
         <h2 className="text-2xl font-semibold text-yellow-700 mb-4 blink">
-          Certificate - Java Programming
+          Java Programming
         </h2>
 
         <p className="text-gray-700 leading-relaxed mb-6">

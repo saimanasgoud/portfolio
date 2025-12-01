@@ -42,7 +42,7 @@ function ServiceCard({ title, icon: Icon, children, colorClass, animationClass }
 
 export default function Skillset() {
   return (
-    <section className="bg-gradient-to-b text-left from-blue-50 via-white to-blue-50 px-3 py-20 mt-20 overflow-hidden">
+    <section className="bg-gradient-to-b text-left from-blue-50 via-white to-blue-50 px-3 py-5 mt-27 overflow-hidden">
       <div className="text-center mb-12 animate-fadeInDown">
         <h1 className="text-4xl font-extrabold text-blue-700 mb-3">
           My Technical Skillset

@@ -21,7 +21,7 @@ useEffect(() => {
 }, []);
   return (
   <>
-    <nav className="flex mt-4 h-20 justify-between items-center navbar">
+    <nav className="flex mt-0 h-15 justify-between items-center navbar">
       <div>
         {/* <img src={logo} alt="Logo" className="h-12 rounded-full" /> */}
         {/* <h1 className=" name text-xl font-bold text-blue-600 float-3d">

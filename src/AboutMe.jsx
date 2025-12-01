@@ -31,7 +31,7 @@ export default function AboutMe() {
 
       {/* Content */}
       <motion.ul
-        className="space-y-6 text-gray-800 leading-relaxed text-lg"
+        className="space-y-6  text-gray-800 leading-relaxed text-lg"
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}

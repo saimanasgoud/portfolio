@@ -16,15 +16,16 @@ export default function App() {
       <Navbar />
       <main className="min-h-screen bg-gray-50 justify-center">
         <Routes>
-          <Route path="/InteractionPoint/" element={<MessageBoard />} />
+          <Route path="/InteractionPoint" element={<MessageBoard />} />
+          <Route path="/messageboard" element={<MessageBoard />} />
           <Route path="/" element={<Home />} />
           <Route path="/skillset" element={<Skillset />} />
           <Route path="/certificate" element={<Certificate />}/>
           <Route path="/resume" element={<Resume />} />
           <Route path="*" element={
           <div className="flex flex-col items-center justify-center p-10">
-            <img src='/saimanas/404.jpg' alt='404 Not Found' className='mx-auto border-4 border-red -500 rounded-md w-full max-w-lg mt-20 mb-10 h-auto' />
-            <h2 className="text-2xl mt-4 text-red-600 pt-10 font-semibold">Oops! Page Not Found</h2>
+            <img src='/portfolio/404.jpg' alt='404 Not Found' className='mx-auto border-4 border-red -500 rounded-md w-full max-w-lg mt-25 mb-5 h-auto' />
+            <h2 className="text-2xl mt-4 text-red-600 pt-5 font-semibold">Oops! Page Not Found</h2>
             <p className="text-gray-600 mt-2">The page you're looking for doesn't exist's.</p>
         </div>
           } />

@@ -1,6 +1,9 @@
 // MessageBoard.jsx
 import React, { useEffect, useState, useRef } from "react";
 import { db } from "./firebase";
+import emailjs from "@emailjs/browser";
+import MessageOtp from "./MessageOtp";
+
 import {
   ref,
   push,
@@ -10,6 +13,7 @@ import {
   onDisconnect,
   serverTimestamp,
 } from "firebase/database";
+import Message from "./MessageOtp";
 
 /* -----------------------
   Simple bad words filter:
@@ -70,6 +74,133 @@ const REACTION_TYPES = ["likes", "dislikes", "love"];
 const ADMIN_EMAIL = ""; // <-- set your admin email here if you want
 
 export default function MessageBoard() {
+
+  // STEP 1 — OTP States
+  const [otpSent, setOtpSent] = useState(false);
+  const [serverOtp, setServerOtp] = useState("");
+  const [enteredOtp, setEnteredOtp] = useState("");
+  const [otpError, setOtpError] = useState("");
+
+
+  const [statusMessage, setStatusMessage] = useState("");
+  const [statusType, setStatusType] = useState("");
+
+  const [otpExpiresAt, setOtpExpiresAt] = useState(null);
+  const [cooldown, setCooldown] = useState(0);
+
+  const generateOtp = () => {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+  };
+
+  const startCooldown = () => {
+    setCooldown(30); // user must wait 30 seconds to resend
+  };
+
+  const resendOtp = () => {
+    if (cooldown > 0) return;
+    sendOtp();
+  };
+  // Cooldown timer countdown
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const timer = setTimeout(() => setCooldown(cooldown - 1), 1000);
+    return () => clearTimeout(timer);
+    return () => clearTimeout(timer);
+  }, [cooldown]);
+
+  const sendOtp = () => {
+    if (!tempName || !tempEmail) {
+      setStatusMessage("Please enter name and email");
+      setStatusType("error");
+      return;
+    }
+
+    // Generate 6-digit OTP
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    setServerOtp(otp);
+
+    const now = new Date();
+    const dateTime = now.toLocaleString("en-IN", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      hour12: true,
+    });
+
+    const newOtp = generateOtp();
+    setServerOtp(newOtp);
+
+    setOtpSent(true);
+    setOtpExpiresAt(Date.now() + 3 * 60 * 1000); // expires in 3 minutes
+    startCooldown();
+
+
+    const templateParams = {
+      user_name: tempName,
+      user_email: tempEmail,
+      otp: newOtp,
+    };
+
+
+
+    try {
+      emailjs.send(
+        "service_ol9mscn",     // your service id
+        "template_rq3pbl4",    // your template id
+        templateParams,
+        "sJD5jexP_JXmI95ma"    // your public key
+      )
+        .then(() => {
+          setStatusMessage("OTP sent to your email!");
+          setStatusType("success");
+        })
+        .catch(() => {
+          setStatusMessage("Failed to send OTP");
+          setStatusType("error");
+        });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
+      setStatusMessage("Failed to send OTP. Try again.");
+      setStatusType("error");
+    }
+  }; // Ensure this closing bracket is added
+
+  //     setOtpSent(true);
+  //     alert("OTP sent to your email!");
+  //   } catch (error) {
+  //     console.error("EmailJS Error:", error);
+  //     alert("Failed to send OTP. Try again.");
+  //   }
+  // };
+
+  // STEP 3 — Verify OTP
+  const verifyOtp = () => {
+    if (enteredOtp === serverOtp) {
+      alert("🎉 Email verified successfully!");
+      setShowPostForm(true);
+      // Save user info
+      setUserName(tempName);
+      setUserEmail(tempEmail);
+
+      localStorage.setItem("mb_userName", tempName);
+      localStorage.setItem("mb_userEmail", tempEmail);
+
+      // Close popup and reset OTP UI
+      setShowUserPopup(false);
+      setOtpSent(false);
+      setOtpError("");
+      setEnteredOtp("");
+
+    } else {
+      setOtpError("Oops — the code is Incorrect or doesn’t match... Please double-check and retry.");
+    }
+  };
+
+  //step?
+
   // messages + UI
   const [messages, setMessages] = useState([]);
   const [visibleCount, setVisibleCount] = useState(10); // pagination: show first 10
@@ -121,6 +252,11 @@ export default function MessageBoard() {
   // keep ref so onValue unsubscribe works reliably
   const messagesRefRef = useRef(null);
 
+  //admin
+  const ADMIN_EMAIL = "saimanas670@gmail.com";  // <-- YOUR real email here
+
+  const isAdmin = userEmail === ADMIN_EMAIL;
+
   // persist reactions locally
   useEffect(() => {
     try {
@@ -135,7 +271,7 @@ export default function MessageBoard() {
     if (!userEmail) return;
     const key = emailToKey(userEmail);
     const pRef = ref(db, `presence/${key}`);
-    
+
     // set presence on connect
     const updatePresence = () => {
       update(pRef, {
@@ -144,17 +280,17 @@ export default function MessageBoard() {
         // lastActive: Date.now()
       });
     };
-    
+
     updatePresence();
     const intervalId = setInterval(updatePresence, 30000); // Update every 30s
-    
+
     // ensure removal on disconnect
     try {
       onDisconnect(pRef).remove();
     } catch (e) {
       console.warn("onDisconnect not supported in this environment");
     }
-    
+
     // watch presence list and clean old entries
     const listRef = ref(db, "presence");
     const unsub = onValue(listRef, (snap) => {
@@ -165,7 +301,7 @@ export default function MessageBoard() {
       //   .map(([key]) => key);
       // setOnlineUsers(activeUsers);
     });
-    
+
     return () => {
       clearInterval(intervalId);
       unsub();
@@ -338,14 +474,24 @@ export default function MessageBoard() {
     setEditingText("");
   };
 
-  const deleteMessage = async (m) => {
-    if (m.email !== userEmail) {
-      alert("You can only delete your own message.");
-      return;
-    }
-    if (!confirm("Delete this message?")) return;
+const deleteMessage = async (m) => {
+  // allow owner or admin
+  if (m.email !== userEmail && !isAdmin) {
+    alert("You can only delete your own message.");
+    return;
+  }
+
+  if (!confirm("Delete this message?")) return;
+
+  try {
     await remove(ref(db, `messages/${m.id}`));
-  };
+    alert("Message deleted successfully.");
+  } catch (error) {
+    console.error("Error deleting message:", error);
+    alert("Failed to delete message.");
+  }
+};
+
 
   /* ---------------------------
      Reactions (multi-type, single-per-user)
@@ -394,11 +540,12 @@ export default function MessageBoard() {
      - Admin: set ADMIN_EMAIL constant at top
      - Otherwise: message owner can pin their own message
      ---------------------------*/
-  const canPin = (m) => {
+  const canPin = (message) => {
     if (!userEmail) return false;
-    // Only owners can pin their own messages
-    return m.email === userEmail;
+    return isAdmin || message.email === userEmail;
   };
+
+
 
   const togglePin = async (m) => {
     if (!canPin(m)) {
@@ -556,10 +703,25 @@ export default function MessageBoard() {
   /* ---------------------------
      Render
      ---------------------------*/
+
+  const deleteMessageById = (id) => {
+    // Remove message from main messages list
+    setMessages(prev => prev.filter(m => m.id !== id));
+
+    // Remove from reportedMessages as well
+    setReportedMessages(prev => prev.filter(r => r.id !== id));
+  };
+
   return (
     <section className="max-w-3xl mx-auto mt-25 p-1 bg-white rounded-lg shadow-lg relative">
       {/* Header: Community Status Bar */}
-      <div className="flex items-center justify-between mb-4 p-3 bg-indigo-50 rounded-lg">
+
+      {/* Admin Panel: Reported Messages */}
+
+
+
+
+      <div className="flex items-center justify-between mb-0 p-3 bg-indigo-50 rounded-lg">
         <div className="flex items-center gap-2">
           <span className="text-lg font-semibold text-indigo-700">TalkZone</span>
           <span className="text-sm text-gray-600">Community Board</span>
@@ -587,67 +749,149 @@ export default function MessageBoard() {
       )}
 
       {/* First-time User Authentication */}
-        {showUserPopup && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
-            <div className="absolute inset-0 bg-black/30"></div>
-            {/* make modal content scrollable when it overflows the viewport */}
-            <div className="relative bg-white rounded-lg p-4 w-[92%] max-w-md shadow-lg z-60 max-h-[80vh] overflow-y-auto">
-          <h2 className="text-xl font-bold mb-3 text-indigo-700">TalkZone – Public Message Board</h2>
- 
-        <details className="mb-4 bg-gray-50 p-3 rounded border">
-            <summary className="cursor-pointer font-bold text-green-500">Why Iam asking this</summary>
-            <ul className="mt-2 text-sm text-gray-700 list-disc list-inside space-y-1">
-              <li>It helps me to keep the space free from unwanted or anonymous activity.</li>
-              <li>Ensures that reports are clear and easy to manage or Delete if required.</li>
-              <li>Gives you the flexibility to remove your details whenever needed..</li>
-            </ul>
-          </details>
-          <div className="bg-indigo-50 border border-indigo-200 rounded-md p-4 mb-4">
-            <h3 className="text-lg font-semibold mb-3 text-green-600 flex items-center gap-2">🛡️ Before You Post — A Quick Step</h3>
-            <ul className="mt-3 space-y-2 text-sm text-gray-700">
-              <li className="flex items-start gap-2">✅ <span>Your <span className="font-semibold text-indigo-700">name will be displayed</span> with your post — please enter it correctly.</span></li>
-              <li className="flex items-start gap-2">📧 <span>Your email is used only for <span className="font-semibold text-green-700">verification</span> and to recognize you when you return.</span></li>
-              <li className="flex items-start gap-2">🔒 <span>We keep your details <span className="font-semibold text-green-700">safe, secure & confidential</span>.</span></li>
-              <li className="flex items-start gap-2">🧑‍💻 <span>You only need to enter your details <span className="font-semibold text-red-700">once</span> — next time we’ll greet you with “Welcome back!”.</span></li>
-              <li className="flex items-start gap-2">🤝 <span>This helps maintain a <span className="font-semibold text-purple-700">trustworthy and respectful community</span>.</span></li>
-            </ul>
-          </div>
+      {showUserPopup && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/10"></div>
+          {/* make modal content scrollable when it overflows the viewport */}
+          <div className="relative bg-white rounded-lg p-4 w-[92%] max-w-md shadow-lg z-60 max-h-[80vh] overflow-y-auto">
+            <h2 className="text-xl font-bold mb-3 text-indigo-700">TalkZone – Public Message Board</h2>
 
-          <p className="text-sm text-gray-700 leading-relaxed mb-3">To keep this community genuine and respectful, please provide your <span className="font-semibold text-indigo-700">real name and email</span> before posting a message.</p>
+            <details className="mb-4 bg-gray-50 p-3 rounded border">
+              <summary className="cursor-pointer hover:underline font-bold text-pink-600">
+                You Can
+              </summary>
+              <ul className="mt-2 text-sm text-gray-700 list-disc list-inside space-y-2">
+                <li>Share thoughts, updates, news, or any important information with the community.</li>
+                <li>Edit or delete your messages at any time for clarity and accuracy.</li>
+                <li>Report messages that require moderation or attention.</li>
+                <li>Reply directly to others, to maintain clear and structured conversations.</li>
+              </ul>
+            </details>
 
-          <div className="mb-4">
-            <label className="flex items-center gap-3 mb-3">
-              <span className="w-10 text-orange-500 font-medium">Name</span>
-              <input
-            type="text"
-            placeholder="Will appear with every post you make."
-            className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
-            value={tempName}
-            onChange={(e) => setTempName(e.target.value)}
-              />
-            </label>
 
-            <label className="flex items-center gap-3">
-              <span className="w-10 text-orange-500 font-medium">Email</span>
-              <input
-            type="email"
-            placeholder="Verify your identity and avoid fake users."
-            className="flex-1 p-2 border rounded focus:ring-2 focus:ring-orange-300"
-            value={tempEmail}
-            onChange={(e) => setTempEmail(e.target.value)}
-              />
-            </label>
-          </div>
+            <details className="mb-4 bg-gray-50 p-3 rounded border">
+              <summary className="cursor-pointer font-bold hover:underline text-pink-600">Why Iam asking this</summary>
+              <ul className="mt-2 text-sm text-gray-700 list-disc list-inside space-y-1">
+                <li>Because it helps me to keep the space free from unwanted or anonymous activity.</li>
+                <li>Ensures that reports are clear and easy to manage or Delete if required.</li>
+                <li>Gives you the flexibility to remove your details whenever needed..</li>
+              </ul>
+            </details>
 
-          <div className="flex justify-end space-x-3">
-            <button onClick={() => setShowUserPopup(false)} className="px-4 py-2 cursor-pointer border rounded">Cancel</button>
-            <button onClick={saveUserDetails} className="px-4 py-2 cursor-pointer bg-indigo-600 text-white rounded">Save & Continue</button>
-          </div>
+            <details className="mb-4 bg-gray-50 p-3 rounded border">
+              <summary className="cursor-pointer hover:underline underline-green font-bold text-pink-600">
+                Why Email Verification Is Required
+              </summary>
+              <ul className="mt-2 text-sm text-gray-700 list-disc list-inside space-y-2">
+                <li>To confirm that the message is coming from a real user and not a bot or anonymous source.</li>
+                <li>To maintain a respectful and accountable environment on the message board.</li>
+                <li>Your name and email is used only to display on every message you do.</li>
+                <li>Data is not stored anywhere even in the Local storage.</li>
+                <li>Your email is used strictly for one-time OTP verification and is not saved in any system.</li>
+                <li>No personal data (name, email, or message content) is stored or shared — everything stays local on your device.</li>
+              </ul>
+            </details>
+
+
+
+            <div className="bg-indigo-50 border border-indigo-200 rounded-md p-4 mb-4">
+              <h3 className="text-lg font-semibold mb-3 text-green-600 flex items-center gap-2">🛡️ Before You Post — A Quick Step</h3>
+              <ul className="mt-3 space-y-2 text-sm text-gray-700">
+                <li className="flex items-start gap-2">✅ <span>Your <span className="font-semibold text-indigo-700">name will be displayed</span> with your post — please enter it correctly.</span></li>
+                <li className="flex items-start gap-2">📧 <span>Your email is used only for <span className="font-semibold text-green-700">verification</span> and to recognize you when you return.</span></li>
+                <li className="flex items-start gap-2">🔒 <span>We keep your details <span className="font-semibold text-green-700">safe, secure & confidential</span>.</span></li>
+                <li className="flex items-start gap-2">🧑‍💻 <span>You only need to enter your details <span className="font-semibold text-red-700">once</span> — next time we’ll greet you with “Welcome back!”.</span></li>
+                <li className="flex items-start gap-2">🤝 <span>This helps maintain a <span className="font-semibold text-purple-700">trustworthy and respectful community</span>.</span></li>
+              </ul>
+            </div>
+
+            <p className="text-sm text-gray-700 leading-relaxed mb-3">To keep this community genuine and respectful, please provide your <span className="font-semibold text-indigo-700">real name and email</span> before posting a message.</p>
+
+            <div style={{ padding: "20px", maxWidth: "400px" }}>
+              {!otpSent ? (
+                <>
+                  <div className="mb-4">
+                    <label className="flex items-center gap-3 mb-3">
+                      <span className="w-10 text-orange-500 font-medium">Name</span>
+                      <input
+                        value={tempName}
+                        placeholder="Who’s joining the fun today? 😎"
+                        onChange={(e) => setTempName(e.target.value)}
+                        className="flex-1 p-2 border rounded"
+                      />
+                    </label>
+
+                    <label className="flex items-center gap-3">
+                      <span className="w-10 text-orange-500 font-medium">Email</span>
+                      <input
+                        value={tempEmail}
+                        placeholder="strangerthings@gmail.com⚡💌"
+                        onChange={(e) => setTempEmail(e.target.value)}
+                        className="flex-1 p-2 border rounded"
+                      />
+                    </label>
+                  </div>
+
+                  <div className="flex justify-end space-x-3">
+                    <button onClick={() => setShowUserPopup(false)} className="px-4 py-2 cursor-pointer border rounded">Cancel</button>
+                    <button onClick={sendOtp}
+                      className="px-4 py-2 cursor-pointer bg-indigo-600 text-white rounded">Send OTP</button>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <div className="mb-4">
+                    <label className="flex items-center gap-0">
+                      <span className="w-30 text-green-500 font-medium">Enter OTP:</span>
+                      {/* {otpError && <div className="text-red-600 text-sm mt-2">{otpError}</div>} */}
+                      <input
+                        value={enteredOtp}
+                        placeholder="6-digit code"
+                        onChange={(e) => setEnteredOtp(e.target.value)}
+                        className="flex p-2 text-gray-700 border border-pink-500 rounded focus:border-violet-300 outline-blue-500"
+                      />
+                    </label>
+                    {otpError && <div className="text-red-600 text-sm mt-2">{otpError}</div>}
+                  </div>
+
+                  {/* Resend OTP */}
+                  <div className="flex mb-5 items-center justify-center gap-3 mt-4">
+                    {/* Countdown or ready message */}
+                    <span className={`font-medium transition-colors duration-200 ${cooldown > 0 ? 'text-blue-600' : 'text-green-600'}`}>
+                      {cooldown > 0 ? `Hang tight! Resend OTP in ${cooldown}s` : 'Did not receive the code?'}
+                    </span>
+
+                    {/* Resend OTP Button */}
+                    <button
+                      onClick={resendOtp}
+                      disabled={cooldown > 0}
+                      className={`
+      px-1 py-1 rounded-md font-semibold 
+      border-2 border-blue-600 
+      transition-colors duration-200
+      ${cooldown > 0
+                          ? 'bg-yellow-50 text-red-700 hover:text-red-500 border-gray-300 cursor-not-allowed opacity-60'
+                          : 'bg-blue-600 text-white cursor-pointer hover:bg-blue-700 hover:scale-110'}
+    `}
+                    >
+                      Resend OTP
+                    </button>
+                  </div>
+
+
+
+                  <div className="flex justify-end space-x-3">
+                    <button onClick={() => { setOtpSent(false); setOtpError(""); setEnteredOtp(""); }} className="px-4 py-2 cursor-pointer border rounded">Back</button>
+                    <button onClick={verifyOtp} className="px-4 py-2 cursor-pointer bg-indigo-600 text-white rounded">Verify OTP</button>
+                  </div>
+                </>
+              )}
             </div>
           </div>
-        )}
+        </div>
+      )}
 
-        {/* Post form */}
+      {/* Post form */}
       {showPostForm && !showUserPopup && (
         <div className="mb-6 bg-white rounded-lg shadow-sm p-4">
           {/* User info bar */}
@@ -657,8 +901,8 @@ export default function MessageBoard() {
                 {userName.charAt(0).toUpperCase()}
               </div>
               <div>
-                <div className="text-sm pl-30 font-semibold text-gray-800">{userName}</div>
-                <div className="text-xs text-gray-500">{userEmail}</div>
+                <div className="text-sm pl-0 pr-23 font-semibold text-green-500">{userName}</div>
+                <div className="text-xs text-green-700">{userEmail}</div>
               </div>
             </div>
             <button
@@ -668,54 +912,54 @@ export default function MessageBoard() {
               Update details
             </button>
             <button
-                    onClick={async () => {
-                    if (!confirm("Delete stored name & email from this device and remove your presence from the database?")) return;
-                    const email = userEmail;
-                    // clear local state & storage
-                    setUserName("");
-                    setUserEmail("");
-                    try {
-                      localStorage.removeItem("mb_userName");
-                      localStorage.removeItem("mb_userEmail");
-                    } catch (e) {}
-                    // remove presence entry from RTDB (if any)
-                    if (email) {
-                      try {
-                      await remove(ref(db, `presence/${emailToKey(email)}`));
-                      } catch (e) {
-                      // ignore errors silently
-                      }
-                    }
-                    // close post form and show popup so user can re-enter if needed
-                    setShowPostForm(false);
-                    setShowUserPopup(true);
-                    alert("Your details have been removed.");
-                    }}
-                    className="text-xs cursor-pointer text-red-600 hover:underline ml-2"
-                    >
-                    Delete details
-                    </button>
+              onClick={async () => {
+                if (!confirm("Delete stored name & email from this device and remove your presence from the database?")) return;
+                const email = userEmail;
+                // clear local state & storage
+                setUserName("");
+                setUserEmail("");
+                try {
+                  localStorage.removeItem("mb_userName");
+                  localStorage.removeItem("mb_userEmail");
+                } catch (e) { }
+                // remove presence entry from RTDB (if any)
+                if (email) {
+                  try {
+                    await remove(ref(db, `presence/${emailToKey(email)}`));
+                  } catch (e) {
+                    // ignore errors silently
+                  }
+                }
+                // close post form and show popup so user can re-enter if needed
+                setShowPostForm(false);
+                setShowUserPopup(true);
+                alert("Your details have been removed.");
+              }}
+              className="text-xs cursor-pointer text-red-600 hover:underline ml-2"
+            >
+              Delete details
+            </button>
           </div>
 
-          
 
-          {/* /* Message input */ }
-                <div className="space-y-3">
-                {/* <div className="flex items-center gap-2 text-sm text-red-600 mb-2">
+
+          {/* /* Message input */}
+          <div className="space-y-3">
+            {/* <div className="flex items-center gap-2 text-sm text-red-600 mb-2">
                   <span className="animate-pulse">🔴 LIVE</span>
                   <span>Your message will be visible to everyone immediately</span>
                 </div> */}
-                <textarea
-                  rows={4}
-                  className="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300"
-                  placeholder="Share your thoughts professionally and respectfully. Remember, your message will be visible to all users in real-time."
-                  value={messageText}
-                  onChange={(e) => setMessageText(e.target.value)}
-                  onFocus={() => setTyping("newMessage", true)}
-                  onBlur={() => setTyping("newMessage", false)}
-                />
+            <textarea
+              rows={2}
+              className="w-full p-3 border rounded-md focus:ring-2 focus:ring-indigo-300 focus:border-indigo-300"
+              placeholder="Share your thoughts professionally and respectfully. Remember, your message will be visible to all users in real-time."
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
+              onFocus={() => setTyping("newMessage", true)}
+              onBlur={() => setTyping("newMessage", false)}
+            />
 
-                {/* Character count & guidelines */}
+            {/* Character count & guidelines */}
             <div className="flex items-center justify-between text-xs text-gray-500">
               <div>
                 {messageText.length}/1000 characters
@@ -769,19 +1013,19 @@ export default function MessageBoard() {
                       <span>Looks good</span>
                       <span className="text-green-200">✓</span>
                     </span>
-                    )}
-                  </button>
-
-                  {/* Delete stored name/email (also removes presence in DB) */}
-                  
-                  </div>
-                  </div>
-        </div>
-        </div>
                   )}
-              {loading && <div className="text-center py-8 text-gray-500">Loading messages...</div>}
+                </button>
 
-              {/* Messages list */}
+                {/* Delete stored name/email (also removes presence in DB) */}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {loading && <div className="text-center py-8 text-gray-500">Loading messages...</div>}
+
+      {/* Messages list */}
       <div className="space-y-6">
         {messages.slice(0, visibleCount).map((m) => (
           <article key={m.id} className={`p-4 border rounded-lg shadow-sm ${m.pinned ? "bg-yellow-50" : "bg-indigo-50"} relative`}>
@@ -801,7 +1045,18 @@ export default function MessageBoard() {
                         className="text-sm font-semibold text-gray-800 hover:underline"
                         title="View profile & posts"
                       >
-                        {m.name}
+                        {/* {m.name} */}
+                        <div className="message-header">
+                          <strong>{m.name}</strong>
+
+                          {m.email === ADMIN_EMAIL && (
+                            <span className="ml-2 px-2 py-1 bg-green-600 text-white text-[10px] font-bold rounded-full uppercase tracking-wide">
+                              Admin
+                            </span>
+                          )}
+
+
+                        </div>
                       </button>
                       <span className="text-xs text-gray-500" title={formatDate(m.createdAt)}>
                         • {timeAgo(m.createdAt)}
@@ -836,19 +1091,34 @@ export default function MessageBoard() {
                         {/* <button onClick={() => showEmailFor(m.email)} className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-50">Show Email</button> */}
 
                         {/* edit & delete only for owner */}
-                        {m.email === userEmail && (
-                          <>
-                            <button onClick={() => startEditMessage(m)} className="block w-full px-4 py-2 text-left cursor-pointer text-sm hover:bg-gray-100">Edit</button>
-                            <button onClick={() => deleteMessage(m)} className="block w-full px-4 py-2 text-left cursor-pointer text-sm hover:bg-gray-100 text-red-600">Delete</button>
-                          </>
-                        )}
+                        {/* Edit only for owner */}
+{m.email === userEmail && (
+  <button
+    onClick={() => startEditMessage(m)}
+    className="block w-full px-4 py-2 text-left cursor-pointer text-sm hover:bg-gray-100"
+  >
+    Edit
+  </button>
+)}
+
+{/* Delete for owner or admin */}
+{(m.email === userEmail || isAdmin) && (
+  <button
+    onClick={() => deleteMessage(m)}
+    className="block w-full px-4 py-2 text-left cursor-pointer text-sm hover:bg-gray-100 text-red-600"
+  >
+    Delete
+  </button>
+)}
+
 
                         {/* pin if allowed */}
-                        {canPin(m) && (
+                        {isAdmin && (
                           <button onClick={() => togglePin(m)} className="block w-full px-4 py-2 cursor-pointer text-left text-sm hover:bg-gray-50">
                             {m.pinned ? "Unpin" : "Pin"}
                           </button>
                         )}
+
 
                         <button onClick={() => openReport(m.id)} className="block w-full px-4 py-2 cursor-pointer text-left text-sm hover:bg-gray-50 text-red-600">Report</button>
                       </div>
@@ -858,9 +1128,23 @@ export default function MessageBoard() {
 
                 {/* typing indicator under header */}
                 <div className="mt-1">
-                  {typingMap[m.id] && typingMap[m.id].length > 0 && (
-                    <div className="text-xs text-gray-500 italic">{typingMap[m.id].slice(0, 3).join(", ")} typing...</div>
-                  )}
+                  {typingMap[m.id] && typingMap[m.id].length > 0 && (() => {
+                    const names = typingMap[m.id]
+                      .slice(0, 3)
+                      .map((item) => {
+                        if (!item) return "";
+                        // if item is an email-like key (sanitized with commas), take part before @ and replace commas with dots
+                        if (typeof item === "string") {
+                          const atIndex = item.indexOf("@");
+                          const raw = atIndex !== -1 ? item.slice(0, atIndex) : item;
+                          return raw.replace(/,/g, ".");
+                        }
+                        return String(item);
+                      })
+                      .filter(Boolean)
+                      .join(", ");
+                    return <div className="text-xs text-gray-500 italic">{names} typing...</div>;
+                  })()}
                 </div>
 
                 {/* replies list */}
@@ -886,7 +1170,7 @@ export default function MessageBoard() {
 
                         <div className="ml-2 text-right">
                           {/* reply actions: edit/delete if owner */}
-                          {r.email === userEmail && (
+                          {(r.email === userEmail || isAdmin) && (
                             <>
                               <button onClick={() => startEditReply(m.id, r)} className="text-xs cursor-pointer text-indigo-600 mr-2">Edit</button>
                               <button onClick={() => deleteReply(m.id, r)} className="text-xs cursor-pointer text-red-600">Delete</button>
@@ -1016,4 +1300,5 @@ export default function MessageBoard() {
       )}
     </section>
   );
-}
+};
+
