@@ -239,7 +239,7 @@ const CrazyTicTacToe = () => {
           </div>
 
           {/* Board */}
-          <div className="grid grid-cols-3 gap-5">
+          <div className="grid grid-cols-3 ml-5 gap-5">
             {board.map((cell, i) => (
               <div key={i} onClick={() => handleClick(i)}
                 className={`w-20 h-20 flex items-center justify-center rounded-lg shadow-md cursor-pointer text-4xl font-bold transition-all duration-300 hover:scale-105 ${winningLine.includes(i) ? "ring-4 ring-red-500 animate-pulse" : ""}`}

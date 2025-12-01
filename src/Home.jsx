@@ -35,6 +35,9 @@ const tips = [
   "✨ Scroll further down to view my complete skillset and experience!",
   "🌐 Explore my GitHub for more live projects and code!",
   "📝 Want to interact? Use the Connect section to post your message!",
+  "🎮 Take a break and play the Crazy Tic-Tac-Toe game in the Play Game section!",
+  "💬 Leave a note or greeting in the Message Board — I’d love to read it!",
+  "📄 Don’t forget to check out or download my Resume to know more about my experience!",
 ];
 
 

@@ -736,7 +736,7 @@ const deleteMessage = async (m) => {
 
       {/* Message Creation Button */}
       {!showPostForm && (
-        <div className="flex items-center justify-between mb-6 bg-white p-4 rounded-lg shadow-sm">
+        <div className="flex items-center justify-between mb-6 bg-white p-4 mr-1 rounded-lg shadow-sm">
           <button
             onClick={onClickPost}
             className="bg-indigo-600 text-white px-6 py-2.5 cursor-pointer rounded-lg hover:bg-indigo-700 transition-colors flex items-center gap-2"
