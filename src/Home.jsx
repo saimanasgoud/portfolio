@@ -40,7 +40,6 @@ const tips = [
   "📄 Don’t forget to check out or download my Resume to know more about my experience!",
 ];
 
-
   const getGreeting = () => {
     const hour = new Date().getHours();
     if (hour >= 5 && hour < 12) return "🌞 Good morning! Explore my portfolio!";
