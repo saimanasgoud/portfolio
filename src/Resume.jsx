@@ -21,7 +21,7 @@ export default function Resume() {
   };
 
   return (
-    <main className="mx-auto rounded-lg text-center py-24 px-4 mt-27 min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-600 transition">
+    <main className="mx-auto rounded-lg w-full text-center py-24 px-4 mt-27 min-h-screen bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-600 transition">
       
       <h2 style={{"margin-top": -75}} className="text-4xl font-bold mb-4 text-green-600 dark:text-green-400">
         My Resume

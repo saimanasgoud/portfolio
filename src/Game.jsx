@@ -13,6 +13,7 @@ const JOKES = [
   "You beat AI! Scientists want to study your brain 🧠🔥",
   "Computer defeated! Someone call tech support 😵‍💻",
   "Winner! Your mouse just requested your autograph 🐭✍️",
+  "Raktha pingari roi 🐍 busakotatandi roi 🐉",
 ];
 
 const CrazyTicTacToe = () => {
@@ -223,7 +224,7 @@ const CrazyTicTacToe = () => {
           {/* Game Info Panel */}
           <div className="flex justify-evenly mt-5 mb-5 bg-yellow-100 rounded-lg p-3 gap-4 items-center mb-2 text-sm text-gray-700">
             <div>Mode: {difficulty}</div>
-            <div>First Turn: {firstTurn === "user" ? "You 🧑" : "Computer 🤖"}</div>
+            <div>First Turn: {firstTurn === "user" ? "YOU 🧑" : "AI 🤖"}</div>
             <div>Symbol: {userSymbol}</div>
           </div>
 
@@ -278,13 +279,12 @@ const CrazyTicTacToe = () => {
 
           {/* Settings Panel */}
           {showSettings && (
-            <div className="fixed inset-0 z-50">
-              <div onClick={() => setShowSettings(false)} className="absolute inset-0 cursor-pointer"></div>
-              <div className="relative ml-auto bg-white w-80 p-6 h-full overflow-y-auto shadow-2xl rounded-l-2xl">
+              <div className="fixed inset-0 z-50 bg-black/ backdrop-blur-sm flex justify-end items-start">
+              <div className="relative ml-auto bg-white w-80 p-6 h-full overflow-y-auto shadow-4xl rounded-l-3xl">
                 <h2 className="text-2xl font-bold mb-4">⚙️ Game Settings</h2>
 
                 {/* Navigation */}
-                <button className="flex-1 px-4 py-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer" onClick={() => { setShowSettings(false); setShowGame(false); setShowLanding(true); }}>🏠 Home</button>
+                <button className="flex-1 px-4 py-2 mb-2 rounded-lg hover:bg-gray-100 cursor-pointer" onClick={() => { setShowSettings(false); setShowGame(false); setShowLanding(true); }}>🏠 Return Home</button>
                 <button className="px-4 py-2 mb-2 flex-1 rounded-lg hover:bg-gray-100 cursor-pointer" onClick={hardReset}>🎮 Restart Game</button>
 
                 <div className="border-t border-gray-300 my-2"></div>
@@ -293,9 +293,9 @@ const CrazyTicTacToe = () => {
                 {/* Scores */}
                 <button
                   onClick={() => setShowWinsDetail(!showWinsDetail)}
-                  className="w-full px-4 py-2 mb-4 rounded-lg bg-yellow-400 text-white hover:bg-yellow-500 transition cursor-pointer"
+                  className="w-full px-4 py-2 mb-4 rounded-lg bg-yellow-100 text-green-600 font-bold hover:bg-yellow-300 transition cursor-pointer"
                 >
-                  Stats 📊
+                Show me the glory 🏆
                 </button>
 
                 {showWinsDetail && (
@@ -311,36 +311,39 @@ const CrazyTicTacToe = () => {
                 )}
 
                 {/* Game Options */}
-                <div className="mb-3 flex gap-4">
-                  <label className="font-semibold mt-2 block mb-1">Mode:</label>
+                <div className="mb-3 text-pink-500 gap-4">
+                  <label className="font-semibold text-purple-600 mt-2 block mb-1">Difficulty Level:</label>
                   <select
                     value={tempDifficulty}
                     onChange={e => setTempDifficulty(e.target.value)}
                     className="w-full px-2 py-2 rounded-lg border cursor-pointer focus:ring-2 focus:ring-yellow-400"
                   >
+                    <option value="" disabled>Select</option>
                     <option value="Easy">Chill & Win 🏖️ (Easy)</option>
                     <option value="Medium">Think Big 🤔 (Medium)</option>
                     <option value="Hard">Brain-Breaker 💥 (Hard)</option>
                   </select>
                 </div>
 
-                <div className="mb-3 flex gap-4">
-                  <label className="font-semibold mt-2">FirstTurn:</label>
+                <div className="mb-3 text-pink-500 gap-4">
+                  <label className="font-semibold text-purple-600 mt-2">Who Starts First:</label>
                   <select value={tempFirstTurn} onChange={e => setTempFirstTurn(e.target.value)}
                     className="w-full px-2 py-2 rounded-lg border cursor-pointer">
-                    <option value="user">You 🧑</option>
-                    <option value="computer">Computer 🤖</option>
+                    <option value="" disabled>Select</option>
+                    <option value="user">YOU 🧑</option>
+                    <option value="computer">AI 🤖</option>
                   </select>
                 </div>
 
-                <div className="mb-3 flex gap-4">
-                  <label className="font-semibold mt-2">Symbol:</label>
+                <div className="mb-3 text-pink-500 gap-4">
+                  <label className="font-semibold text-purple-600 mt-2">Choose Your Symbol:</label>
                   <select value={userSymbol} onChange={e => {
                     const newUserSymbol = e.target.value;
                     setUserSymbol(newUserSymbol);
                     setComputerSymbol(newUserSymbol === "X" ? "O" : "X");
                   }}
-                    className="w-full px-3 py-2 rounded-lg border cursor-pointer">
+                    className="w-full text-pink-500 px-3 py-2 rounded-lg border cursor-pointer">
+                    <option value="" disabled>Select</option>                    
                     <option value="X">X</option>
                     <option value="O">O</option>
                   </select>
@@ -371,8 +374,8 @@ const CrazyTicTacToe = () => {
 
                 {/* Save / Cancel */}
                 <div className="flex justify-between mt-4">
-                  <button onClick={saveSettings} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">Save</button>
-                  <button onClick={() => setShowSettings(false)} className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 cursor-pointer">Cancel</button>
+                  <button onClick={saveSettings} className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 cursor-pointer">💾 Save</button>
+                  <button onClick={() => setShowSettings(false)} className="px-4 py-2 bg-gray-400 text-white rounded-lg hover:bg-gray-500 cursor-pointer">❌ Cancel</button>
                 </div>
               </div>
             </div>

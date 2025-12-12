@@ -69,29 +69,40 @@ function CircularProgress({ percentage, color, label }) {
 }
 
 export default function Skills() {
-  const skills = [
-    { label: "Vite + React", percentage: 90, color: "#facc15" },
-    { label: "MySQL", percentage: 85, color: "#3b82f6" },
-    { label: "Spring Boot", percentage: 80, color: "#10b981" },
-    { label: "Git", percentage: 75, color: "#f97316" },
-    { label: "Java", percentage: 85, color: "#ef4444" },
-    { label: "CSS", percentage: 90, color: "#6366f1" },
-    { label: "HTML", percentage: 95, color: "#69f50be8" },
-    { label: "Tailwind Css", percentage: 90, color: "#b5e43eda" },
-    { label: "JavaScript", percentage: 92, color: "#eab308" },
-  ];
+ const skills = [
+  { label: "Vite + React", percentage: 90, color: "#facc15" },
+  { label: "MySQL", percentage: 85, color: "#3b82f6" },
+  { label: "Spring Boot", percentage: 80, color: "#10b981" },
+  { label: "Git", percentage: 75, color: "#f97316" },
+  { label: "Java", percentage: 85, color: "#ef4444" },
+  { label: "CSS", percentage: 90, color: "#6366f1" },
+  { label: "HTML", percentage: 95, color: "#69f50be8" },
+  { label: "Tailwind Css", percentage: 90, color: "#38bdf8" },     // improved color
+  { label: "JavaScript", percentage: 92, color: "#eab308" },
 
-const logoMap = {
+  // ⭐ NEW ENTRY
+  { label: "Postman", percentage: 88, color: "#ff6c37" },          // NEW
+  { label: "React JS", percentage: 92, color: "#61DAFB" },          // ⭐ NEW
+
+];
+
+const logoMap = { 
   "Vite + React": "https://cdn.worldvectorlogo.com/logos/react-2.svg",
   "MySQL": "https://cdn.simpleicons.org/mysql/4479A1",
   "Spring Boot": "https://cdn.worldvectorlogo.com/logos/spring-3.svg",
   "Git": "https://cdn.worldvectorlogo.com/logos/git-icon.svg",
-  "Java": "https://cdn.worldvectorlogo.com/logos/java-4.svg",          // WORKING
-  "CSS": "https://cdn.worldvectorlogo.com/logos/css-3.svg",           // WORKING
+  "Java": "https://cdn.worldvectorlogo.com/logos/java-4.svg",
+  "CSS": "https://cdn.worldvectorlogo.com/logos/css-3.svg",
   "HTML": "https://cdn.worldvectorlogo.com/logos/html-1.svg",
   "Tailwind Css": "https://cdn.worldvectorlogo.com/logos/tailwind-css-2.svg",
   "JavaScript": "https://cdn.worldvectorlogo.com/logos/javascript-1.svg",
+
+  // ⭐ NEW ENTRIES
+  "Postman": "https://cdn.worldvectorlogo.com/logos/postman.svg",
+  "React JS": "https://cdn.worldvectorlogo.com/logos/react-2.svg",
+
 };
+
 
   return (
     <section className="py-12 px-2 md:px-12 lg:px-24 bg-gray-50 rounded-lg shadow-lg">

@@ -143,7 +143,7 @@ export default function Footer() {
           </p>
         </div>
       </div>
-  <p className="text-gray-700 dark:text-gray-300 flex items-center justify-center md:justify-end mt-2 gap-2">
+  <p className="text-gray-700 pl-10 dark:text-gray-300 flex justify-center md:justify-end mt-2 gap-2">
     <img
       src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg"
       alt="India Flag"

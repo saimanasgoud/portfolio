@@ -32,7 +32,7 @@ function maskBadWords(text) {
 
 /* sanitize email for use as key (Firebase RTDB disallows . # $ [ ] ) */
 function emailToKey(email = "") {
-  return email.replace(/[.#$\[\]]/g, ",");
+  return email.replace(/\./g, "_").replace(/,/g, "_");
 }
 
 /* format date (no seconds), show full date */
@@ -713,7 +713,7 @@ const deleteMessage = async (m) => {
   };
 
   return (
-    <section className="max-w-3xl mx-auto mt-25 p-1 bg-white rounded-lg shadow-lg relative">
+    <section className="max-w-3xl flex-1 mx-auto mt-25 p-1 bg-white rounded-lg shadow-lg relative">
       {/* Header: Community Status Bar */}
 
       {/* Admin Panel: Reported Messages */}
@@ -825,7 +825,7 @@ const deleteMessage = async (m) => {
                       <span className="w-10 text-orange-500 font-medium">Email</span>
                       <input
                         value={tempEmail}
-                        placeholder="strangerthings@gmail.com⚡💌"
+                        placeholder="el@elevengmail.com⚡💌"
                         onChange={(e) => setTempEmail(e.target.value)}
                         className="flex-1 p-2 border rounded"
                       />

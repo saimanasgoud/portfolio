@@ -150,6 +150,54 @@ export default function Skillset() {
           </ul>
         </ServiceCard>
 
+{/* Spring Boot */}
+<ServiceCard
+  title="Spring Boot"
+  icon={FaServer}
+  colorClass="text-green-700"
+  animationClass="animate-fadeInUp delay-700"
+>
+  <ul className="list-disc list-inside space-y-2">
+    <li>Developed RESTful APIs with Spring Boot</li>
+    <li>Dependency Injection & IoC Container</li>
+    <li>Integrated JPA/Hibernate for data persistence</li>
+    <li>Exception handling with @ControllerAdvice</li>
+    <li>Implemented validation using Hibernate Validator</li>
+    <li>Microservice-ready architecture</li>
+  </ul>
+</ServiceCard>
+
+{/* Postman */}
+<ServiceCard
+  title="Postman"
+  icon={FaTools}
+  colorClass="text-orange-500"
+  animationClass="animate-fadeInUp delay-800"
+>
+  <ul className="list-disc list-inside space-y-2">
+    <li>API testing & automation with Postman</li>
+    <li>Created reusable collections & environments</li>
+    <li>Implemented test scripts in JavaScript</li>
+    <li>Used Postman for integration testing</li>
+    <li>Monitored API response performance</li>
+  </ul>
+</ServiceCard>
+
+{/* MySQL Workbench */}
+<ServiceCard
+  title="MySQL Workbench"
+  icon={FaDatabase}
+  colorClass="text-blue-600"
+  animationClass="animate-fadeInUp delay-900"
+>
+  <ul className="list-disc list-inside space-y-2">
+    <li>Designed ER diagrams & relational schemas</li>
+    <li>Optimized queries using indexes</li>
+    <li>Performed data modeling for applications</li>
+    <li>Executed SQL scripts for migrations</li>
+    <li>Handled backups, restores & user permissions</li>
+  </ul>
+</ServiceCard>
 
       </div>
     </section>
