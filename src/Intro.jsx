@@ -29,7 +29,7 @@ as MySQL to deliver efficient, secure, and responsive solutions.`;
   }, []);
 
   return (
-    <main className="screen items-center justify-center text-center space-y-10 px-0 pt-10 md:px-10 mt-0">
+    <main className="screen items-center justify-center text-center space-y-10 px-0 pt-0 md:px-10 mt-0">
       {/* Hero Section */}
       <section 
         style={{ backgroundColor: bgColor, transition: 'background-color 1s ease' }}

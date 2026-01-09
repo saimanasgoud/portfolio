@@ -4,7 +4,7 @@ import Intro from './Intro';
 import AboutMe from './AboutMe';
 import Projects from './Projects';
 import Connect from './Connect';
-import Skills from './TechnicalScills';
+import Skills from './TechnicalSkills.jsx';
 import Game from './Game.jsx';
 export default function Home() {
   const [showStayMessage, setshowStayMessage] = useState("");
@@ -109,7 +109,7 @@ const tips = [
   }, []);
 
   return (
-    <main className="hig pt-1 space-y-0 text-center">
+    <main className="hig pt-0 space-y-0 text-center">
       
       {/* Intro Section */}
       <Intro />

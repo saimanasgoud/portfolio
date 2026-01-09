@@ -1,6 +1,6 @@
-/* Navbar.css */
+/* Navbar.css
 
-/* 3D animation for the name */
+/* 3D animation for the name 
 @keyframes float3D {
     50%, 100% {
       transform: perspective(500px) rotateX(0deg) rotateY(0deg);
@@ -12,13 +12,11 @@
     }
   }
   
-  /* Apply the animation to the .name class */
   .name {
     display: inline-block;
     animation: float3D 3s ease-in-out infinite;
   }
 
-  /* In your CSS file (e.g., Navbar.css) */
   .navbar {
     width: 100%;
     position: relative;
@@ -29,6 +27,175 @@
     z-index: 1;
     box-shadow: inset 0 -2px 0 rgba(0, 1, 0, 0.1);
   } 
-  
+   */
 
-  
+
+   /* MAIN NAVBAR */
+/* NAVBAR */
+
+.main-navbar {
+  height: 60px;
+  background: #b9ed3f;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 0 8px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: -100px;
+  position: fixed;
+  width: 100%;
+}
+
+/* TOGGLER */
+.navbar-toggler {
+  font-size: 26px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  z-index: 5;
+}
+
+/* DATE + TIME BOX */
+.date{
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin-left: 16px;
+  background: #101213;
+  padding: 3px 2px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 5;
+}
+.clock{
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin-left: 16px;
+  background: #11ade6fc;
+  padding: 3px 2px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 5;
+}
+
+/* BASE MENU LINK */
+.collapse-panel a {
+  position: relative;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* LEFT COLOR BAR */
+.collapse-panel a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.3s ease;
+}
+
+
+/* HOVER EFFECT */
+.collapse-panel a:hover {
+  transform: translateX(8px) scale(1.03);
+  box-shadow: 0 0px 24px rgba(0, 0, 0, 0.25);
+}
+
+/* SHOW COLOR BAR */
+.collapse-panel a:hover::before {
+  transform: scaleY(1);
+}
+
+/* CLICK EFFECT */
+.collapse-panel a:active {
+  transform: scale(0.97);
+}
+
+/* ACTIVE PAGE */
+.collapse-panel a.active {
+  background: rgba(236, 13, 13, 0.1);
+  box-shadow: inset 0 0 10px 1px rgba(220, 67, 67, 0.15);
+}
+
+/* COLLAPSE PANEL */
+.collapse-panel {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100%;
+  background: #25b9ea;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  \transition: left 1s ease;
+  z-index: 1000;
+}
+
+.collapse-panel.show {
+  left: 0;
+}
+
+/* MENU TOP */
+.menu-top {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close-icon {
+  font-size: 22px;
+  cursor: pointer;
+}
+
+/* LINKS */
+.collapse-panel a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 6px;
+  transition: background 1.2s, transform 110.2s;
+}
+
+.collapse-panel a:hover {
+  background: #495057;
+  transform: translateX(6px);
+}
+
+/* BOTTOM CLOSE BUTTON */
+.menu-close-btn {
+  margin-top: auto;
+  padding: 10px;
+  background: #dc3545;
+  color: white;
+  border: 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.greeting{
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  margin-left: 16px;
+  background: #e922df;
+  padding: 3px 2px;
+  border-radius: 8px;
+  font-size: 14px;
+  z-index: 5;
+}

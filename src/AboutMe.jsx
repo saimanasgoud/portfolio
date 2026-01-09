@@ -75,6 +75,8 @@ export default function AboutMe() {
           ➤ Beyond coding, I’m passionate about exploring new technologies,
           optimizing performance, and continuously improving as a developer.
         </motion.li>
+
+      
       </motion.ul>
     </section>
   );

@@ -177,7 +177,7 @@ const CrazyTicTacToe = () => {
   };
 
   return (
-    <div ref={screenRef} className="flex mb-5 flex-col items-center justify-center p-1 mt-15 font-sans relative bg-gray-100 text-gray-900">
+    <div ref={screenRef} className="flex mb-5 flex-col items-center justify-center p-1 mt-15 font-sans relative text-gray-900">
 
       {/* Landing Page */}
       {showLanding && (
@@ -212,7 +212,7 @@ const CrazyTicTacToe = () => {
 
             {/* Game UI */}
       {showGame && (
-        <div className="w-100 max-w-ls p-4 bg-white rounded-2xl shadow-2xl">
+        <div className="w-100 max-w-ls p-4 bg-white mt-10 rounded-2xl shadow-2xl">
 
           {/* Settings Button */}
           <div className="flex justify-end mb-2">
