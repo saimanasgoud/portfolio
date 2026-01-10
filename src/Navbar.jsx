@@ -173,19 +173,18 @@ export default function Navbar() {
             ✖
           </span>
         </div>
-
-        <NavLink to="/" onClick={() => setMenuOpen(false)}>Home</NavLink>
-          <NavLink to="/about" onClick={() => setMenuOpen(false)}>About</NavLink>
-        <NavLink to="/skillset" onClick={() => setMenuOpen(false)}>Skillset</NavLink>
-        <NavLink to="/InteractionPoint" onClick={() => setMenuOpen(false)}>Message Online</NavLink>
-        <NavLink to="/certificate" onClick={() => setMenuOpen(false)}>Certificate</NavLink>
-        <NavLink to="/resume" onClick={() => setMenuOpen(false)}>Resume</NavLink>
-        <NavLink to="/projects" onClick={() => setMenuOpen(false)}>Projects</NavLink>
-        <NavLink to="/game" onClick={() => setMenuOpen(false)}>Play Game</NavLink>
-        <NavLink to="/ConnectMe" onClick={() => setMenuOpen(false)}>Connect Me</NavLink>
-        <NavLink to="/technical-skills" onClick={() => setMenuOpen(false)} className="pt-10">Technical Skills</NavLink>
-        <NavLink to="/blog" onClick={() => setMenuOpen(false)}>Blog</NavLink>
-        <NavLink to="/faq" onClick={() => setMenuOpen(false)}>FAQ</NavLink>
+        <NavLink to="/" onClick={() => setMenuOpen(false)} className="nav-link">Home</NavLink>
+        <NavLink to="/about" onClick={() => setMenuOpen(false)} className="nav-link">About</NavLink>
+        <NavLink to="/skillset" onClick={() => setMenuOpen(false)} className="nav-link">Skillset</NavLink>
+        <NavLink to="/InteractionPoint" onClick={() => setMenuOpen(false)} className="nav-link">Message Online</NavLink>
+        <NavLink to="/certificate" onClick={() => setMenuOpen(false)} className="nav-link">Certificate</NavLink>
+        <NavLink to="/resume" onClick={() => setMenuOpen(false)} className="nav-link">Resume</NavLink>
+        <NavLink to="/projects" onClick={() => setMenuOpen(false)} className="nav-link">Projects</NavLink>
+        <NavLink to="/game" onClick={() => setMenuOpen(false)} className="nav-link">Play Game</NavLink>
+        <NavLink to="/ConnectMe" onClick={() => setMenuOpen(false)} className="nav-link">Connect Me</NavLink>
+        <NavLink to="/technical-skills" onClick={() => setMenuOpen(false)} className="nav-link">Technical Skills</NavLink>
+        <NavLink to="/blog" onClick={() => setMenuOpen(false)} className="nav-link">Blog</NavLink>
+        <NavLink to="/faq" onClick={() => setMenuOpen(false)} className="nav-link">FAQ</NavLink>
 
         <button className="menu-close-btn" onClick={() => setMenuOpen(false)}>
           Close Menu
