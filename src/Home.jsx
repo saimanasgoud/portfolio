@@ -66,7 +66,7 @@ const tips = [
 
       const hideTimer = setTimeout(() => setshowStayMessage(false), 8000);
       return () => clearTimeout(hideTimer);
-    }, 50000);
+    }, 60000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -80,7 +80,7 @@ const tips = [
 
       // Hide tip after 9 seconds
       setTimeout(() => setShowTip(false), 8000);
-    }, 30000); // show once after 20s
+    }, 40000); // show once after 20s
 
     return () => clearTimeout(timer);
   }, []);

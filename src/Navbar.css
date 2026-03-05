@@ -33,53 +33,67 @@
    /* MAIN NAVBAR */
 /* NAVBAR */
 
-.main-navbar {
-  height: 60px;
-  background: #b9ed3f;
+/* .main-navbar {
+  height: 50px;
+  background: black;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 0 0 8px;
+  justify-content: space-around;
   color: white;
-  position: relative;
-  overflow: hidden;
-  margin-bottom: -100px;
   position: fixed;
   width: 100%;
-}
+} */
 
+.main-navbar{
+  height: 60px;
+  border-radius: 20px;;
+  background: linear-gradient(
+    to bottom,
+    #FF9933 14%,
+    white 33% 66%,
+    #138808 100%
+  );
+
+  display:flex;
+  align-items:center;
+  justify-content:space-around;
+  width:100%;
+  position:fixed;
+}
 /* TOGGLER */
 .navbar-toggler {
   font-size: 26px;
   background: none;
   border: none;
-  color: white;
+  color: black;
   cursor: pointer;
   z-index: 5;
+  border: 2px solid green;
+  border-radius: 20px;
+  padding: 1px 8px 2px 9px;
+
+  background-color: transparent;
 }
 
 /* DATE + TIME BOX */
 .date{
   display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  margin-left: 16px;
-  background: #101213;
-  padding: 3px 2px;
   border-radius: 8px;
   font-size: 14px;
-  z-index: 5;
+  color: black;
 }
 .clock{
   display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  margin-left: 16px;
-  background: #11ade6fc;
-  padding: 3px 2px;
   border-radius: 8px;
   font-size: 14px;
-  z-index: 5;
+  color: tomato;
+}
+
+.greeting{
+  display: flex;
+  border-radius: 8px;
+  font-size: 14px;
+  color: blue;
 }
 
 /* BASE MENU LINK */
@@ -89,7 +103,7 @@
   border-radius: 10px;
   font-size: 16px;
   font-weight: 600;
-  color: white;
+  color: black;
   text-decoration: none;
   overflow: hidden;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
@@ -139,12 +153,12 @@
   left: -280px;
   width: 260px;
   height: 100%;
-  background: #25b9ea;
+  background: white;
   padding: 16px;
   display: flex;
   flex-direction: column;
   gap: 2px;
-  \transition: left 1s ease;
+  transition: left 1s ease;
   z-index: 1000;
 }
 
@@ -189,26 +203,14 @@
   cursor: pointer;
 }
 
-.greeting{
-  display: flex;
-  gap: 14px;
-  justify-content: space-between;
-  margin-left: 16px;
-  background: #e922df;
-  padding: 3px 2px;
-  border-radius: 8px;
-  font-size: 14px;
-  z-index: 5;
-}
-
 .nav-link {
   display: block;
   padding: 10px 16px;
   font-size: 16px;
   font-weight: 500;
-  color: #e5e7eb; /* light gray */
+  color: black !important;  /* light gray */
   text-decoration: none;
-
+  
   transition: 
     color 0.3s ease,
     background-color 0.3s ease,
@@ -224,7 +226,7 @@
 
 /* Active route color */
 .nav-link.active {
-  color: #d2f11c; /* green */
+  color: #0e0e0e; /* green */
   background-color: rgba(34, 197, 94, 0.15);
   font-weight: 700;
   border-radius: 18px;
@@ -232,4 +234,14 @@
 
 .nav-link {
   letter-spacing: 1px;
+}
+
+.nav-message {
+  color: blue !important;
+}
+
+.greeting-container{
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }

@@ -113,14 +113,18 @@
 
 
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
 export default function Navbar() {
   const [time, setTime] = useState(new Date());
   const [menuOpen, setMenuOpen] = useState(false);
   const [greeting, setGreeting] = useState("");
+  const location = useLocation();
 
+  useEffect(() => {
+  setMenuOpen(false);
+}, [location]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -175,16 +179,17 @@ export default function Navbar() {
         </div>
         <NavLink to="/" onClick={() => setMenuOpen(false)} className="nav-link">Home</NavLink>
         <NavLink to="/about" onClick={() => setMenuOpen(false)} className="nav-link">About</NavLink>
-        <NavLink to="/skillset" onClick={() => setMenuOpen(false)} className="nav-link">Skillset</NavLink>
-        <NavLink to="/InteractionPoint" onClick={() => setMenuOpen(false)} className="nav-link">Message Online</NavLink>
-        <NavLink to="/certificate" onClick={() => setMenuOpen(false)} className="nav-link">Certificate</NavLink>
-        <NavLink to="/resume" onClick={() => setMenuOpen(false)} className="nav-link">Resume</NavLink>
-        <NavLink to="/projects" onClick={() => setMenuOpen(false)} className="nav-link">Projects</NavLink>
-        <NavLink to="/game" onClick={() => setMenuOpen(false)} className="nav-link">Play Game</NavLink>
+        {/* <NavLink to="/projects" onClick={() => setMenuOpen(false)} className="nav-link">Projects</NavLink> */}
+        <NavLink to="/skillset" onClick={() => setMenuOpen(false)} className="nav-link nav-message">Skillset</NavLink>
         <NavLink to="/ConnectMe" onClick={() => setMenuOpen(false)} className="nav-link">Connect Me</NavLink>
+        {/* <NavLink to="/projects" onClick={() => setMenuOpen(false)} className="nav-link">Projects</NavLink> */}
+        <NavLink to="/InteractionPoint" onClick={() => setMenuOpen(false)} className="nav-link nav-message">Message Online</NavLink>
+        <NavLink to="/certificate" onClick={() => setMenuOpen(false)} className="nav-link">Certificate</NavLink>
+        <NavLink to="/resume" onClick={() => setMenuOpen(false)} className="nav-link nav-message">Resume</NavLink>
+        <NavLink to="/game" onClick={() => setMenuOpen(false)} className="nav-link">Play Game</NavLink>
         <NavLink to="/technical-skills" onClick={() => setMenuOpen(false)} className="nav-link">Technical Skills</NavLink>
-        <NavLink to="/blog" onClick={() => setMenuOpen(false)} className="nav-link">Blog</NavLink>
-        <NavLink to="/faq" onClick={() => setMenuOpen(false)} className="nav-link">FAQ</NavLink>
+        <NavLink to="/blog" onClick={() => setMenuOpen(false)} className="nav-link nav-message">Blog</NavLink>
+        <NavLink to="/faq" onClick={() => setMenuOpen(false)} className="nav-link nav-message">FAQ</NavLink>
 
         <button className="menu-close-btn" onClick={() => setMenuOpen(false)}>
           Close Menu
@@ -201,6 +206,8 @@ export default function Navbar() {
           {menuOpen ? "✖" : "☰"}
         </button>
 
+        {/* <p className="name">Sai manas | full stack java developer</p> */}
+
         {/* DATE & TIME SIDE BY SIDE */}
         <div className="date">
           <span>📅 {date}</span>
@@ -209,9 +216,14 @@ export default function Navbar() {
           <span>⏰ {clock}</span>
         </div>
 
-        {/* 🌞 GREETING */}
+        {/* 🌞 GREEaTING */}
         <div className="greeting">
           {greeting}
+        </div>
+
+        {/* india flag */}
+        <div className="india-flag">
+          
         </div>
       </nav>
     </>
